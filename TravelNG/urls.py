@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 from hello.views import hello_world
+from request.views import start_request
 
 urlpatterns = [
     path('hello/', hello_world),
+    path('request/', start_request),
     path('admin/', admin.site.urls),
 ]
