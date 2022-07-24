@@ -18,7 +18,7 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Übersicht</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'newRequest' %}">Antrag</a>
+                <a class="nav-link" href="{% url 'newTravelRequest' %}">Antrag</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'newInvoice' %}">Abrechnung</a>
@@ -32,9 +32,8 @@
 {% block content %}
     Content Block
 {% endblock %}
-{% block footer %}
-    {# Kommentar #}
-    Footer Block
-{% endblock %}
 </body>
+{% block footer %}
+    <div class="text-center text-white bg-primary fixed-bottom">Andreas Lehmann 2022</div>
+{% endblock %}
 </html>

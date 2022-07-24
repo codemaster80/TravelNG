@@ -1,6 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from request.models import *
+from request.forms import *
 
 
 # Create your views here.
@@ -8,8 +11,23 @@ def home(request):
     return render(request, 'request/base.html', {'page_title': 'Start'})
 
 
-def new_request(request):
-    return redirect("http://www.google.de")
+def new_travel_request(request):
+    travel_request = TravelRequest()
+
+    if request.method == 'POST':
+        # Formular abgeschickt
+        form = RequestForm(request.POST, instance=travel_request)
+        if form.is_valid():
+            form.save()
+            # Pruefung erfolgreich
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            # Pruefung nicht erfolgreich
+            pass
+    else:
+        form = RequestForm(instance=travel_request)
+
+    return render(request, 'request/travelRequest.html', {'page_title': 'Reiseantrag', 'form': form})
 
 
 def new_invoice(request):
