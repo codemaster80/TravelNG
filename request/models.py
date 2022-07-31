@@ -2,6 +2,9 @@ from django.db import models
 
 
 # Create your models here.
+from django.utils import timezone
+
+
 class Employee(models.Model):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
@@ -19,11 +22,23 @@ class CostCenter(models.Model):
         return f'{self.department}'
 
 
+class Transport(models.Model):
+    vehicle = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f'{self.vehicle}'
+
+
 class TravelRequest(models.Model):
-    destination = models.CharField(max_length=50)
-    event = models.CharField(max_length=50)
-    cost_center = models.ForeignKey(CostCenter, on_delete=models.SET_NULL, null=True)
-    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    destination = models.CharField(max_length=50, blank=False)
+    event = models.CharField(max_length=50, blank=False)
+    journey_start = models.DateTimeField(default=timezone.now, blank=False)
+    journey_end = models.DateTimeField(default=timezone.now, blank=False)
+    event_start = models.DateTimeField(default=timezone.now, blank=False)
+    event_end = models.DateTimeField(default=timezone.now, blank=False)
+    transport = models.ForeignKey(Transport, on_delete=models.SET_NULL, null=True, blank=False)
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=False)
+    cost_center = models.ForeignKey(CostCenter, on_delete=models.SET_NULL, null=True, blank=False)
 
     def __str__(self):
         return f'{self.destination} {self.event}'

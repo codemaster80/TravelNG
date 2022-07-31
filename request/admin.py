@@ -5,4 +5,5 @@ from request.models import *
 
 admin.site.register(CostCenter)
 admin.site.register(Employee)
+admin.site.register(Transport)
 admin.site.register(TravelRequest)
