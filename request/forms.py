@@ -12,3 +12,13 @@ class RequestForm(ModelForm):
             'employee': 'Mitarbeiter'
         }
         fields = '__all__'
+
+class InvoiceForm(ModelForm):
+    class Meta:
+        model = TravelInvoice
+        labels = {
+            'hotel_costs': 'Übernachtungskosten',
+            'transport_costs': 'Transportkosten',
+            'other_costs': 'Andere Kosten',
+        }
+        fields = '__all__'

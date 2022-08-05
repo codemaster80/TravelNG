@@ -30,5 +30,21 @@ def new_travel_request(request):
     return render(request, 'request/travelRequest.html', {'page_title': 'Reiseantrag', 'form': form})
 
 
-def new_invoice(request):
-    return redirect("http://www.google.de")
+def new_travel_invoice(request):
+    travel_invoice = TravelInvoice()
+
+    if request.method == 'POST':
+        # Formular abgeschickt
+        form = RequestForm(request.POST, instance=travel_invoice)
+        if form.is_valid():
+            form.save()
+            # Pruefung erfolgreich
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            # Pruefung nicht erfolgreich
+            pass
+    else:
+        form = InvoiceForm(instance=travel_invoice)
+
+    return render(request, 'request/travelInvoice.html', {'page_title': 'Reiseabrechnung', 'form': form})
+

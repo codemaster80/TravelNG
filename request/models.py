@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 from django.utils import timezone
 
@@ -42,3 +41,12 @@ class TravelRequest(models.Model):
 
     def __str__(self):
         return f'{self.destination} {self.event}'
+
+
+class TravelInvoice(models.Model):
+    hotel_costs = models.IntegerField(blank=False)
+    transport_costs = models.IntegerField(blank=False)
+    other_costs = models.IntegerField(blank=False)
+
+    def __str__(self):
+        return f'{self.hotel_costs} {self.transport_costs} {self.other_costs}'
