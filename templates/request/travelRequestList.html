@@ -1,0 +1,22 @@
+{% extends 'request/base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th>Reiseziel</th>
+            <th>Veranstaltung</th>
+            <th>Beginn</th>
+            <th>Ende</th>
+        </tr>
+
+        {% for TravelRequest in travel_requests %}
+            <tr>
+                <td>{{ TravelRequest.destination }}</td>
+                <td>{{ TravelRequest.event }}</td>
+                <td>{{ TravelRequest.journey_start }}</td>
+                <td>{{ TravelRequest.journey_end }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

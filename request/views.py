@@ -8,7 +8,10 @@ from request.forms import *
 
 # Create your views here.
 def home(request):
-    return render(request, 'request/base.html', {'page_title': 'Start'})
+    travel_requests = TravelRequest.objects.all().order_by('journey_start')
+
+    return render(request, 'request/travelRequestList.html',
+                  {'page_title': 'Start', 'travel_requests': travel_requests})
 
 
 def new_travel_request(request):
@@ -47,4 +50,3 @@ def new_travel_invoice(request):
         form = InvoiceForm(instance=travel_invoice)
 
     return render(request, 'request/travelInvoice.html', {'page_title': 'Reiseabrechnung', 'form': form})
-
