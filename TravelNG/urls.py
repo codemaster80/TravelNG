@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from request.views import home, new_travel_request, new_travel_invoice
+
+from TravelNG import settings
+from request.views import home, new_travel_request, new_travel_invoice, logout_view
 
 urlpatterns = [
     path('request/', home, name="home"),
     path('newRequest/', new_travel_request, name="newTravelRequest"),
     path('newInvoice/', new_travel_invoice, name="newInvoice"),
+    path('logout/', logout_view, {'next_page': settings.LOGOUT_REDIRECT_URL}, name="logout"),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

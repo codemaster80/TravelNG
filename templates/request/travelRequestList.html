@@ -2,7 +2,7 @@
 {% load bootstrap5 %}
 
 {% block content %}
-    <table>
+    <table class="table table-striped table-bordered table-hover">
         <tr>
             <th>Reiseziel</th>
             <th>Veranstaltung</th>
@@ -16,6 +16,7 @@
                 <td>{{ TravelRequest.event }}</td>
                 <td>{{ TravelRequest.journey_start }}</td>
                 <td>{{ TravelRequest.journey_end }}</td>
+                <td>{{ TravelRequest.status }}</td>
             </tr>
         {% endfor %}
     </table>

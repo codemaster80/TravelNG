@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -11,7 +12,7 @@ def home(request):
     travel_requests = TravelRequest.objects.all().order_by('journey_start')
 
     return render(request, 'request/travelRequestList.html',
-                  {'page_title': 'Start', 'travel_requests': travel_requests})
+                  {'page_title': '', 'travel_requests': travel_requests})
 
 
 def new_travel_request(request):
@@ -50,3 +51,7 @@ def new_travel_invoice(request):
         form = InvoiceForm(instance=travel_invoice)
 
     return render(request, 'request/travelInvoice.html', {'page_title': 'Reiseabrechnung', 'form': form})
+
+
+def logout_view(request):
+    logout(request)

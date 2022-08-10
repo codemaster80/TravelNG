@@ -13,6 +13,7 @@ class RequestForm(ModelForm):
         }
         fields = '__all__'
 
+
 class InvoiceForm(ModelForm):
     class Meta:
         model = TravelInvoice
