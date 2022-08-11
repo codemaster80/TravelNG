@@ -34,6 +34,12 @@ def new_travel_request(request):
     return render(request, 'request/travelRequest.html', {'page_title': 'Reiseantrag', 'form': form})
 
 
+def delete_travel_request(request, item_id):
+    travel_request = TravelRequest.objects.get(id=item_id)
+    travel_request.delete()
+    return HttpResponseRedirect(reverse('home'))
+
+
 def new_travel_invoice(request):
     travel_invoice = TravelInvoice()
 

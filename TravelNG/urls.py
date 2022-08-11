@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from TravelNG import settings
-from request.views import home, new_travel_request, new_travel_invoice, logout_view
+from request.views import home, new_travel_request, new_travel_invoice, logout_view, delete_travel_request
 
 urlpatterns = [
     path('request/', home, name="home"),
     path('newRequest/', new_travel_request, name="newTravelRequest"),
+    path('deleteRequest/<int:item_id>', delete_travel_request, name="deleteTravelRequest"),
     path('newInvoice/', new_travel_invoice, name="newInvoice"),
     path('logout/', logout_view, {'next_page': settings.LOGOUT_REDIRECT_URL}, name="logout"),
     path('admin/', admin.site.urls),

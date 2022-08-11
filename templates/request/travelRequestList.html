@@ -6,6 +6,7 @@
         <table class="table table-striped table-hover">
             <thead class="">
             <tr>
+                <th>#</th>
                 <th>Reiseziel</th>
                 <th>Veranstaltung</th>
                 <th>Beginn</th>
@@ -18,13 +19,14 @@
             <tbody class="table-group-divider">
             {% for TravelRequest in travel_requests %}
                 <tr>
+                <td>{{ TravelRequest.id }}</td>
                     <td>{{ TravelRequest.destination }}</td>
                     <td>{{ TravelRequest.event }}</td>
                     <td>{{ TravelRequest.journey_start }}</td>
                     <td>{{ TravelRequest.journey_end }}</td>
                     <td>{{ TravelRequest.status }}</td>
                     <td>
-                        <href>{% bs_icon 'trash' color='grey' %}</href>
+                        <a href="{% url 'deleteTravelRequest' TravelRequest.id %}">{% bs_icon 'trash' color='grey' %}</a>
                     </td>
                 </tr>
             {% endfor %}
