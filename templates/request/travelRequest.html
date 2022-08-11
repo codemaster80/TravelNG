@@ -2,9 +2,11 @@
 {% load bootstrap5 %}
 
 {% block content %}
-    <form action="" enctype="multipart/form-data" method="post" class="form-horizontal">
-        {% csrf_token %}
-        {%  bootstrap_form form layout='horizontal' %}
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <div class="m-3">
+        <form action="" enctype="multipart/form-data" method="post" class="form-horizontal">
+            {% csrf_token %}
+            {% bootstrap_form form layout='horizontal' %}
+            <button type="submit" class="btn" style="background-color: #e28743;">Submit</button>
+        </form>
+    </div>
 {% endblock %}
