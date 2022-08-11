@@ -1,5 +1,11 @@
 {% extends 'request/base.html' %}
-{% load bootstrap5 %}
+{% load bootstrap5 bootstrap_icons %}
+
+{% block title %}
+<div class="m-3">
+    <h2>{{ page_title }}</h2>
+</div>
+{% endblock %}
 
 {% block content %}
     <div class="m-3">
