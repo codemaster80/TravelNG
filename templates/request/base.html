@@ -16,10 +16,11 @@
 {% block navigation %}
     <nav class="navbar navbar-expand-lg navbar-dark mb-4" style="background-color: #e28743;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">TravelNG</a>
+            <a class="navbar-brand" href="#">{% md_icon 'earth' %}TravelNG</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">{% bs_icon 'house' %}Home</a>
+                    <a class="nav-link active" aria-current="page"
+                       href="{% url 'home' %}">{% bs_icon 'house' %}Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active"
@@ -30,7 +31,7 @@
                        href="{% url 'newInvoice' %}">{% bs_icon 'bank' %}Reisekostenabrechnung</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'logout' %}">{% bs_icon 'door-closed' %}Logout</a>
+                    <a class="nav-link" href="{% url 'logout' %}">{% bs_icon 'door-closed' %}Logout</a>
                 </li>
             </ul>
         </div>

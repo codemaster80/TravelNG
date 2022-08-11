@@ -56,7 +56,7 @@ def new_travel_invoice(request):
     else:
         form = InvoiceForm(instance=travel_invoice)
 
-    return render(request, 'request/travelInvoice.html', {'page_title': 'Reiseabrechnung', 'form': form})
+    return render(request, 'request/travelInvoice.html', {'page_title': 'Reisekostenabrechnung', 'form': form})
 
 
 def logout_view(request):

@@ -1,8 +1,10 @@
 {% extends 'request/base.html' %}
-{% load bootstrap5 %}
+{% load bootstrap5 bootstrap_icons %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% bootstrap_messages %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'bootstrap_icons/css/bootstrap_icons.css' %}">
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,10 +16,11 @@
 {% block navigation %}
     <nav class="navbar navbar-dark" style="background-color: #e28743;">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">TravelNG</span>
+            <span class="navbar-brand mb-0 h1">{% md_icon 'earth' %}TravelNG</span>
         </div>
     </nav>
 {% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">

@@ -2,17 +2,15 @@
 {% load bootstrap5 bootstrap_icons %}
 
 {% block title %}
-<div class="m-3">
+    <div class="container mb-5">
     <h2>{{ page_title }}</h2>
-</div>
 {% endblock %}
 
 {% block content %}
-    <div class="m-3">
-        <form action="" enctype="multipart/form-data" method="post" class="form-horizontal">
-            {% csrf_token %}
-            {% bootstrap_form form layout='horizontal' %}
-            <button type="submit" class="btn" style="background-color: #e28743;">Submit</button>
-        </form>
+    <form action="" enctype="multipart/form-data" method="post" class="form-horizontal mt-4">
+        {% csrf_token %}
+        {% bootstrap_form form layout='horizontal' %}
+        <button type="submit" class="btn" style="background-color: #e28743;">Absenden</button>
+    </form>
     </div>
 {% endblock %}
