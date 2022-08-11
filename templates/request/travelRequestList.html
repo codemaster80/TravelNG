@@ -1,5 +1,5 @@
 {% extends 'request/base.html' %}
-{% load bootstrap5 %}
+{% load bootstrap5 bootstrap_icons %}
 
 {% block content %}
     <table class="table table-striped table-bordered table-hover">
@@ -8,6 +8,8 @@
             <th>Veranstaltung</th>
             <th>Beginn</th>
             <th>Ende</th>
+            <th>Status</th>
+            <th>Entfernen</th>
         </tr>
 
         {% for TravelRequest in travel_requests %}
@@ -17,6 +19,7 @@
                 <td>{{ TravelRequest.journey_start }}</td>
                 <td>{{ TravelRequest.journey_end }}</td>
                 <td>{{ TravelRequest.status }}</td>
+                <td><href>{% bs_icon 'trash' color='grey' %}</href></td>
             </tr>
         {% endfor %}
     </table>

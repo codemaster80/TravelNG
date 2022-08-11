@@ -1,30 +1,33 @@
-{% load bootstrap5 %}
+{% load static %}
+{% load bootstrap5 bootstrap_icons %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<link rel="stylesheet" href="{% static 'bootstrap_icons/css/bootstrap_icons.css' %}">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{ page_title }}</title>
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
 </head>
 <body>
-{% bootstrap_messages %}
 {#Navigation#}
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">TravelNG</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">{% bs_icon 'house' %}Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{% url 'newTravelRequest' %}">Reiseantrag</a>
+                <a class="nav-link active" href="{% url 'newTravelRequest' %}">{% bs_icon 'airplane' %}Reiseantrag</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{% url 'newInvoice' %}">Reisekostenabrechnung</a>
+                <a class="nav-link active" href="{% url 'newInvoice' %}">{% bs_icon 'bank' %}Reisekostenabrechnung</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-link active" href="{% url 'logout' %}">{% bs_icon 'door-closed' %}Logout</a>
             </li>
         </ul>
     </div>
