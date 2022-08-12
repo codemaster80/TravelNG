@@ -1,16 +1,20 @@
 {% extends 'request/base.html' %}
 {% load bootstrap5 bootstrap_icons %}
 
-{% block title %}
-    <div class="container mb-5">
-    <h2>{{ page_title }}</h2>
-{% endblock %}
+
 
 {% block content %}
-    <form action="" enctype="multipart/form-data" method="post" class="form-horizontal mt-4">
-        {% csrf_token %}
-        {% bootstrap_form form layout='horizontal' %}
-        <button type="submit" class="btn" style="background-color: #e28743;">Absenden</button>
-    </form>
+    <div class="container">
+        <div class="card" style="width: 100%;">
+            <div class="card-body">
+                <h5 class="card-title">{{ page_title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Antrag erstellen</h6>
+                <form action="" enctype="multipart/form-data" method="post" class="form-horizontal mt-4">
+                    {% csrf_token %}
+                    {% bootstrap_form form layout='horizontal' %}
+                    <button type="submit" class="btn" style="background-color: #e28743;">Absenden</button>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
