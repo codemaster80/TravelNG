@@ -29,17 +29,29 @@
                            href="{% url 'home' %}">{% bs_icon 'house' %}Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active"
+                        <a class="nav-link"
                            href="{% url 'newTravelRequest' %}">{% bs_icon 'airplane' %}Reiseantrag</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active"
-                           href="{% url 'newInvoice' %}">{% bs_icon 'bank' %}Reisekostenabrechnung</a>
+                        <a class="nav-link"
+                           href="{% url 'newInvoice' %}">{% bs_icon 'bank' %}Reisekostenantrag</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">{% bs_icon 'door-closed' %}Logout</a>
-                    </li>
+                    {% if perms.request.change_travelrequeststatus %}
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{% url 'travelAuth' %}">{% bs_icon 'bag-check' %}Reisegenehmigung</a>
+                        </li>
+                    {% endif %}
+                    {% if perms.request.change_travelinvoicestatus %}
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{% url 'travelInvoice' %}">{% bs_icon 'cash-coin' %}Reiseabrechnung</a>
+                        </li>
+                    {% endif %}
                 </ul>
+                <a class="nav-link text-white" href="{% url 'logout' %}">{% bs_icon 'person' %}{{ user.username }}</a>
+
+
             </div>
         </nav>
     {% endblock %}

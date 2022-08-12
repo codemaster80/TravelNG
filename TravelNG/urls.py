@@ -17,13 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 
 from TravelNG import settings
-from request.views import home, new_travel_request, new_travel_invoice, logout_view, delete_travel_request
+from request.views import home, new_travel_request, new_travel_invoice, logout_view, delete_travel_request, travel_auth, \
+    travel_invoice
 
 urlpatterns = [
-    path('request/', home, name="home"),
+    path('', home, name="home"),
     path('newRequest/', new_travel_request, name="newTravelRequest"),
     path('deleteRequest/<int:item_id>', delete_travel_request, name="deleteTravelRequest"),
     path('newInvoice/', new_travel_invoice, name="newInvoice"),
+    path('travelAuth/', travel_auth, name="travelAuth"),
+    path('travelInvoice/', travel_invoice, name="travelInvoice"),
     path('logout/', logout_view, {'next_page': settings.LOGOUT_REDIRECT_URL}, name="logout"),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
