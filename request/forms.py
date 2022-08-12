@@ -9,7 +9,11 @@ class RequestForm(ModelForm):
             'destination': 'Reiseziel',
             'event': 'Veranstaltung',
             'cost_center': 'Kostenstelle',
-            'employee': 'Mitarbeiter'
+            'employee': 'Mitarbeiter',
+            'journey_start': 'Reisebeginn',
+            'journey_end': 'Reiseende',
+            'event_start': 'Dienstbeginn',
+            'event_end': 'Dienstende'
         }
         fields = '__all__'
 
