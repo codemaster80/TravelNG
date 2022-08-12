@@ -28,14 +28,11 @@ class Transport(models.Model):
         return f'{self.vehicle}'
 
 
-class TravelRequestStatus(models.Model):
-    status = models.CharField(max_length=30)
-
-    def __str__(self):
-        return f'{self.status}'
-
-
 class TravelRequest(models.Model):
+    STATUS_CHOICES = [('Wartet', 'Wartet'),
+                      ('Genehmigt', 'Genehmigt'),
+                      ]
+
     destination = models.CharField(max_length=50, blank=False)
     event = models.CharField(max_length=50, blank=False)
     journey_start = models.DateTimeField(default=timezone.now, blank=False)
@@ -45,7 +42,7 @@ class TravelRequest(models.Model):
     transport = models.ForeignKey(Transport, on_delete=models.SET_NULL, null=True, blank=False)
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=False)
     cost_center = models.ForeignKey(CostCenter, on_delete=models.SET_NULL, null=True, blank=False)
-    status = models.ForeignKey(TravelRequestStatus, default='wartet', on_delete=models.SET_NULL, null=True, blank=False)
+    status = models.CharField(default='Wartet', max_length=30, choices=STATUS_CHOICES)
 
     def __str__(self):
         return f'{self.destination} {self.event}'

@@ -15,7 +15,7 @@ class RequestForm(ModelForm):
             'event_start': 'Dienstbeginn',
             'event_end': 'Dienstende'
         }
-        fields = '__all__'
+        exclude = ['status']
 
 
 class InvoiceForm(ModelForm):
