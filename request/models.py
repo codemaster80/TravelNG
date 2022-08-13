@@ -1,6 +1,10 @@
+import uuid
+from fileinput import filename
+
 from django.db import models
 
 # Create your models here.
+from django.db.models.fields.files import FieldFile
 from django.utils import timezone
 
 
@@ -56,7 +60,7 @@ class TravelInvoice(models.Model):
     hotel_costs = models.IntegerField(blank=False)
     transport_costs = models.IntegerField(blank=False)
     other_costs = models.IntegerField(blank=False)
-    upload = models.FileField(upload_to='uploads/%Y%m%d-%H%M%S', null=True)
+    upload = models.FileField(upload_to='invoiceData/' + str(uuid.uuid4()), null=True, blank=True)
     status = models.CharField(default='Wartet', max_length=30, choices=STATUS_CHOICES)
 
     def __str__(self):

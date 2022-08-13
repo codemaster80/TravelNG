@@ -15,7 +15,7 @@
                         <th>Beginn</th>
                         <th>Ende</th>
                         <th>Status</th>
-                        <th>Aktion</th>
+                        <th>&nbsp;</th>
                     </tr>
                     </thead>
 
@@ -29,8 +29,7 @@
                             <td>{{ TravelRequest.journey_end }}</td>
                             <td>{{ TravelRequest.status }}</td>
                             <td>
-                                <a class="mx-1" href="{% url 'deleteTravelRequest' TravelRequest.id %}">{% bs_icon 'binoculars' color='black' %}</a>
-                                <a class="mx-1" href="{% url 'deleteTravelRequest' TravelRequest.id %}">{% bs_icon 'pencil' color='black' %}</a>
+                                <a class="mx-1" href="{% url 'editTravelRequest' TravelRequest.id %}">{% bs_icon 'pencil' color='black' %}</a>
                                 <a class="mx-1" href="{% url 'deleteTravelRequest' TravelRequest.id %}">{% bs_icon 'trash' color='black' %}</a>
                             </td>
                         </tr>

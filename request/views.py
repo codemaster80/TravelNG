@@ -1,10 +1,10 @@
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from request.models import *
 from request.forms import *
 
 
@@ -18,24 +18,29 @@ def home(request):
 
 
 @login_required
-def new_travel_request(request):
-    travel_request = TravelRequest()
+def travel_request_details(request, pk=None):
+    if pk is None:
+        travel_request = TravelRequest()
+        page_title = 'Reiseantrag'
+        sub_title = 'Antrag erstellen'
+    else:
+        travel_request = get_object_or_404(TravelRequest, pk=pk)
+        page_title = 'Reiseantrag'
+        sub_title = 'Antrag ändern'
 
     if request.method == 'POST':
-        # Formular abgeschickt
         form = RequestForm(request.POST, instance=travel_request)
         if form.is_valid():
             form.save()
-            # Pruefung erfolgreich
+            messages.success(request, 'Gespeichert')
             return HttpResponseRedirect(reverse('home'))
         else:
-            # Pruefung nicht erfolgreich
-            pass
+            messages.error(request, 'Bitte Fehler korrigieren')
     else:
         form = RequestForm(instance=travel_request)
 
     return render(request, 'request/travelForm.html',
-                  {'page_title': 'Reiseantrag', 'sub_title': 'Antrag erstellen', 'form': form})
+                  {'page_title': page_title, 'sub_title': sub_title, 'form': form})
 
 
 @login_required
@@ -51,7 +56,7 @@ def new_travel_invoice(request):
 
     if request.method == 'POST':
         # Formular abgeschickt
-        form = RequestForm(request.POST, instance=travel_invoice)
+        form = InvoiceForm(request.POST, request.FILES, instance=travel_invoice)
         if form.is_valid():
             form.save()
             # Pruefung erfolgreich
