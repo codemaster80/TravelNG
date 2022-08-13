@@ -1,18 +1,18 @@
 {% extends 'request/base.html' %}
 {% load bootstrap5 bootstrap_icons %}
 
-
-
 {% block content %}
     <div class="container">
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h5 class="card-title">{{ page_title }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Antrag erstellen</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{ sub_title }}</h6>
                 <form action="" enctype="multipart/form-data" method="post" class="form-horizontal mt-4">
                     {% csrf_token %}
                     {% bootstrap_form form layout='horizontal' %}
-                    <button type="submit" class="btn" style="background-color: #e28743;">Absenden</button>
+                    <div class="d-grid gap-2 mx-auto mt-5">
+                        <button type="submit" class="btn" style="background-color: #e28743;">Absenden</button>
+                    </div>
                 </form>
             </div>
         </div>

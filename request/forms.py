@@ -25,5 +25,6 @@ class InvoiceForm(ModelForm):
             'hotel_costs': 'Übernachtungskosten',
             'transport_costs': 'Transportkosten',
             'other_costs': 'Andere Kosten',
+            'upload': 'Belege hochladen',
         }
-        fields = '__all__'
+        exclude = ['status']

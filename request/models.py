@@ -48,18 +48,16 @@ class TravelRequest(models.Model):
         return f'{self.destination} {self.event}'
 
 
-class TravelInvoiceStatus(models.Model):
-    status = models.CharField(max_length=30)
-
-    def __str__(self):
-        return f'{self.status}'
-
-
 class TravelInvoice(models.Model):
+    STATUS_CHOICES = [('Wartet', 'Wartet'),
+                      ('Genehmigt', 'Genehmigt'),
+                      ]
+
     hotel_costs = models.IntegerField(blank=False)
     transport_costs = models.IntegerField(blank=False)
     other_costs = models.IntegerField(blank=False)
-    status = models.ForeignKey(TravelInvoiceStatus, default='wartet', on_delete=models.SET_NULL, null=True, blank=False)
+    upload = models.FileField(upload_to='uploads/%Y%m%d-%H%M%S', null=True)
+    status = models.CharField(default='Wartet', max_length=30, choices=STATUS_CHOICES)
 
     def __str__(self):
         return f'{self.hotel_costs} {self.transport_costs} {self.other_costs}'

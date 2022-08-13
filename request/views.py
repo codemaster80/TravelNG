@@ -34,7 +34,8 @@ def new_travel_request(request):
     else:
         form = RequestForm(instance=travel_request)
 
-    return render(request, 'request/travelRequest.html', {'page_title': 'Reiseantrag', 'form': form})
+    return render(request, 'request/travelForm.html',
+                  {'page_title': 'Reiseantrag', 'sub_title': 'Antrag erstellen', 'form': form})
 
 
 @login_required
@@ -61,7 +62,8 @@ def new_travel_invoice(request):
     else:
         form = InvoiceForm(instance=travel_invoice)
 
-    return render(request, 'request/travelInvoice.html', {'page_title': 'Reisekostenabrechnung', 'form': form})
+    return render(request, 'request/travelForm.html',
+                  {'page_title': 'Reisekostenabrechnung', 'sub_title': 'Antrag erstellen', 'form': form})
 
 
 @login_required

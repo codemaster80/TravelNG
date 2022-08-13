@@ -113,6 +113,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Uploaded files (PDF, Images)
+MEDIA_ROOT = 'upload/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
