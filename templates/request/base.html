@@ -1,7 +1,6 @@
 {% load bootstrap5 bootstrap_icons %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
-{% bootstrap_messages %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'bootstrap_icons/css/bootstrap_icons.css' %}">
 
@@ -9,8 +8,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ page_title }}</title>
-    {% bootstrap_messages %}
 </head>
 <body>
 <div class="bg-image" style="background-image: url('{% static 'travel-g774051fb3_1920.jpg' %}');
@@ -50,8 +47,6 @@
                     {% endif %}
                 </ul>
                 <a class="nav-link text-white" href="{% url 'logout' %}">{% bs_icon 'person' %}{{ user.username }}</a>
-
-
             </div>
         </nav>
     {% endblock %}

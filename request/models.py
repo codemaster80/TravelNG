@@ -37,6 +37,7 @@ class TravelRequest(models.Model):
                       ('Genehmigt', 'Genehmigt'),
                       ]
 
+    employee_name = models.CharField(max_length=50, blank=True)
     destination = models.CharField(max_length=50, blank=False)
     event = models.CharField(max_length=50, blank=False)
     journey_start = models.DateTimeField(default='01.01.2022 08:00', blank=False)
@@ -57,6 +58,9 @@ class TravelInvoice(models.Model):
                       ('Genehmigt', 'Genehmigt'),
                       ]
 
+    travel_request_id = models.OneToOneField(TravelRequest, on_delete=models.SET_NULL, null=True, blank=False)
+    destination = models.CharField(max_length=30, null=True, blank=False)
+    event = models.CharField(max_length=30, null=True, blank=False)
     hotel_costs = models.IntegerField(blank=False)
     transport_costs = models.IntegerField(blank=False)
     other_costs = models.IntegerField(blank=False)

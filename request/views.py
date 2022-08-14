@@ -22,6 +22,7 @@ def home(request):
 def travel_request_details(request, pk=None):
     if pk is None:
         travel_request = TravelRequest()
+        travel_request.employee_name = request.user.get_full_name()
         page_title = 'Reiseantrag'
         sub_title = 'Antrag erstellen'
     else:
@@ -48,6 +49,7 @@ def travel_request_details(request, pk=None):
 def delete_travel_request(request, item_id):
     travel_request = TravelRequest.objects.get(id=item_id)
     travel_request.delete()
+    messages.success(request, 'Gelöscht')
     return HttpResponseRedirect(reverse('home'))
 
 
@@ -55,6 +57,7 @@ def delete_travel_request(request, item_id):
 def delete_travel_invoice(request, item_id):
     travel_invoice = TravelInvoice.objects.get(id=item_id)
     travel_invoice.delete()
+    messages.success(request, 'Gelöscht')
     return HttpResponseRedirect(reverse('home'))
 
 
