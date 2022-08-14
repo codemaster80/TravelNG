@@ -6,7 +6,7 @@ class RequestForm(ModelForm):
     class Meta:
         model = TravelRequest
         labels = {
-            'employee_name': 'Mitarbeiter',
+            'employee': 'Mitarbeiter',
             'destination': 'Reiseziel',
             'event': 'Veranstaltung',
             'cost_center': 'Kostenstelle',
@@ -15,22 +15,26 @@ class RequestForm(ModelForm):
             'event_start': 'Dienstbeginn',
             'event_end': 'Dienstende'
         }
-        exclude = ['status']
+        exclude = ['username', 'status']
         widgets = {
-            'employee_name': TextInput(attrs={'readonly': 'readonly'}),
+            'employee': TextInput(attrs={'readonly': 'readonly'})
         }
+
 
 class InvoiceForm(ModelForm):
     class Meta:
         model = TravelInvoice
         labels = {
+            'employee': 'Mitarbeiter',
+            'travel_request_id': 'Reiseantrag',
             'hotel_costs': 'Übernachtungskosten',
             'transport_costs': 'Transportkosten',
             'other_costs': 'Andere Kosten',
             'upload': 'Belege hochladen',
         }
-        exclude = ['status']
+        exclude = ['username', 'status']
         widgets = {
-            'destination': TextInput(attrs={'readonly': 'readonly'}),
-            'event': TextInput(attrs={'readonly': 'readonly'})
+            'destination': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'event': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'employee': TextInput(attrs={'readonly': 'readonly'})
         }
