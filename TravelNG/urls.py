@@ -18,7 +18,7 @@ from django.urls import path, include
 
 import request.views
 from TravelNG import settings
-from request.views import home, logout_view, delete_travel_request, travel_auth_details
+from request.views import home, logout_view, delete_travel_request
 
 urlpatterns = [
     path('', home, name="home"),
@@ -30,7 +30,8 @@ urlpatterns = [
     path(r'Invoice/Delete/<int:item_id>', request.views.delete_travel_invoice, name="deleteTravelInvoice"),
     path(r'Request/Auth/$', request.views.travel_auth_details, name="travelAuth"),
     path(r'Auth/Edit/(?P<pk>[0-9]+)/?$', request.views.travel_auth_details, name="editTravelAuth"),
-    path('travelInvoice/', request.views.travel_invoice, name="travelInvoice"),
+    path(r'Invoice/Refund/$', request.views.travel_invoice_refund, name="travelInvoiceRefund"),
+    path(r'Invoice/Refund/Edit/(?P<pk>[0-9]+)/?$', request.views.travel_invoice_refund, name="editTravelRefund"),
     path('logout/', logout_view, {'next_page': settings.LOGOUT_REDIRECT_URL}, name="logout"),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),

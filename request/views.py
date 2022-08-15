@@ -102,7 +102,7 @@ def travel_auth_details(request, pk=None):
     sub_title = 'Antrag genehmigen'
     if pk is None:
         travel_requests = TravelRequest.objects.all().order_by('journey_start')
-        return render(request, 'request/auth.html',
+        return render(request, 'request/travelAuth.html',
                       {'page_title': page_title, 'sub_title': sub_title, 'travel_requests': travel_requests})
 
     tr = get_object_or_404(TravelRequest, pk=pk)
@@ -123,8 +123,33 @@ def travel_auth_details(request, pk=None):
 
 
 @login_required
-def travel_invoice(request):
-    return HttpResponseRedirect(reverse('home'))
+def travel_invoice_refund(request, pk=None):
+    if pk is None:
+        travel_invoices = TravelInvoice.objects.all()
+        return render(request, 'request/travelRefund.html',
+                      {'travel_invoices': travel_invoices})
+    else:
+        ti = get_object_or_404(TravelInvoice, pk=pk)
+        page_title = 'Reisekostenerstattung'
+        sub_title = 'Antrag bearbeiten'
+
+    if request.method == 'POST':
+        form = RefundForm(request.POST, instance=ti)
+        if form.is_valid():
+            form.save()
+            tr_data = TravelRequest.objects.get(id=ti.travel_request_id)
+            ti.event = tr_data.event
+            ti.destination = tr_data.destination
+            form.save()
+            messages.success(request, 'Gespeichert')
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            messages.error(request, 'Bitte Fehler korrigieren')
+    else:
+        form = RefundForm(instance=ti)
+
+    return render(request, 'request/travelForm.html',
+                  {'page_title': page_title, 'sub_title': sub_title, 'form': form})
 
 
 def logout_view(request):

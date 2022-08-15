@@ -1,0 +1,46 @@
+{% extends 'request/base.html' %}
+{% load bootstrap5 bootstrap_icons %}
+
+{% block content %}
+    <div class="container">
+        <div class="card" style="width: 100%;">
+            <div class="card-body">
+                <h5 class="card-title">Reisekostenerstattung</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Mitarbeiter</h6>
+                <table class="table table-striped table-hover">
+                    <thead class="">
+                    <tr>
+                        <th>#</th>
+                        <th>Reiseziel</th>
+                        <th>Veranstaltung</th>
+                        <th>Übernachtungskosten</th>
+                        <th>Transportkosten</th>
+                        <th>Andere Kosten</th>
+                        <th>Status</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    {% for TravelInvoice in travel_invoices %}
+                        <tr>
+                            <td>{{ TravelInvoice.id }}</td>
+                            <td>{{ TravelInvoice.hotel_costs }}</td>
+                            <td>{{ TravelInvoice.transport_costs }}</td>
+                            <td>{{ TravelInvoice.hotel_costs }}</td>
+                            <td>{{ TravelInvoice.transport_costs }}</td>
+                            <td>{{ TravelInvoice.other_costs }}</td>
+                            <td>{{ TravelInvoice.status }}</td>
+                            <td>
+                                <a class="mx-1"
+                                   href="{% url 'editTravelRefund' TravelInvoice.id %}">{% bs_icon 'pencil' color='black' %}</a>
+                                <a class="mx-1"
+                                   href="{% url 'deleteTravelInvoice' TravelInvoice.id %}">{% bs_icon 'trash' color='black' %}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

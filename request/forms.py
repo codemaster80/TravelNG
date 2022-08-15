@@ -30,7 +30,7 @@ class InvoiceForm(ModelForm):
             'hotel_costs': 'Übernachtungskosten',
             'transport_costs': 'Transportkosten',
             'other_costs': 'Andere Kosten',
-            'upload': 'Belege hochladen',
+            'upload': 'Belege hochladen'
         }
         exclude = ['username', 'status']
         widgets = {
@@ -64,4 +64,27 @@ class AuthForm(ModelForm):
             'event_start': TextInput(attrs={'readonly': 'readonly'}),
             'event_end': TextInput(attrs={'readonly': 'readonly'}),
             'transport': TextInput(attrs={'readonly': 'readonly'})
+        }
+
+
+class RefundForm(ModelForm):
+    class Meta:
+        model = TravelInvoice
+        labels = {
+            'employee': 'Mitarbeiter',
+            'travel_request_id': 'Reiseantrag',
+            'hotel_costs': 'Übernachtungskosten',
+            'transport_costs': 'Transportkosten',
+            'other_costs': 'Andere Kosten',
+            'upload': 'Belege hochladen'
+        }
+        exclude = ['username']
+        widgets = {
+            'destination': TextInput(attrs={'readonly': 'readonly'}),
+            'event': TextInput(attrs={'readonly': 'readonly'}),
+            'employee': TextInput(attrs={'readonly': 'readonly'}),
+            'hotel_costs': TextInput(attrs={'readonly': 'readonly'}),
+            'transport_costs': TextInput(attrs={'readonly': 'readonly'}),
+            'other_costs': TextInput(attrs={'readonly': 'readonly'}),
+            'upload': TextInput(attrs={'readonly': 'readonly'})
         }
