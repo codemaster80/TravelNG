@@ -16,7 +16,7 @@ def home(request):
     travel_requests = TravelRequest.objects.all().order_by('journey_start')
     travel_invoices = TravelInvoice.objects.all()
 
-    return render(request, 'request/travelRequestList.html',
+    return render(request, 'request/home.html',
                   {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices})
 
 
@@ -70,11 +70,11 @@ def travel_invoice_details(request, pk=None):
         ti = TravelInvoice()
         ti.username = request.user.get_username()
         ti.employee = request.user.get_full_name()
-        page_title = 'Reisekostenabrechnung'
+        page_title = 'Reisekostenerstattung'
         sub_title = 'Antrag erstellen'
     else:
         ti = get_object_or_404(TravelInvoice, pk=pk)
-        page_title = 'Reisekostenabrechnung'
+        page_title = 'Reisekostenerstattung'
         sub_title = 'Antrag ändern'
 
     if request.method == 'POST':
@@ -97,8 +97,29 @@ def travel_invoice_details(request, pk=None):
 
 
 @login_required
-def travel_auth(request):
-    return HttpResponseRedirect(reverse('home'))
+def travel_auth_details(request, pk=None):
+    page_title = 'Reisegenehmigung'
+    sub_title = 'Antrag genehmigen'
+    if pk is None:
+        travel_requests = TravelRequest.objects.all().order_by('journey_start')
+        return render(request, 'request/auth.html',
+                      {'page_title': page_title, 'sub_title': sub_title, 'travel_requests': travel_requests})
+
+    tr = get_object_or_404(TravelRequest, pk=pk)
+
+    if request.method == 'POST':
+        form = AuthForm(request.POST, instance=tr)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Gespeichert')
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            messages.error(request, 'Bitte Fehler korrigieren')
+    else:
+        form = AuthForm(instance=tr)
+
+    return render(request, 'request/travelForm.html',
+                  {'page_title': page_title, 'sub_title': sub_title, 'form': form})
 
 
 @login_required

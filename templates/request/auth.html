@@ -1,0 +1,44 @@
+{% extends 'request/base.html' %}
+{% load bootstrap5 bootstrap_icons %}
+
+{% block content %}
+    <div class="container">
+        <div class="card" style="width: 100%;">
+            <div class="card-body">
+                <h5 class="card-title">Reisegenehmigung</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Mitarbeiter</h6>
+                <table class="table table-striped table-hover">
+                    <thead class="">
+                    <tr>
+                        <th>#</th>
+                        <th>Reiseziel</th>
+                        <th>Veranstaltung</th>
+                        <th>Beginn</th>
+                        <th>Ende</th>
+                        <th>Status</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    {% for TravelRequest in travel_requests %}
+                        <tr>
+                            <td>{{ TravelRequest.id }}</td>
+                            <td>{{ TravelRequest.destination }}</td>
+                            <td>{{ TravelRequest.event }}</td>
+                            <td>{{ TravelRequest.journey_start }}</td>
+                            <td>{{ TravelRequest.journey_end }}</td>
+                            <td>{{ TravelRequest.status }}</td>
+                            <td>
+                                <a class="mx-1"
+                                   href="{% url 'editTravelAuth' TravelRequest.id %}">{% bs_icon 'pencil' color='black' %}</a>
+                                <a class="mx-1"
+                                   href="{% url 'deleteTravelRequest' TravelRequest.id %}">{% bs_icon 'trash' color='black' %}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
