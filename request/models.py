@@ -40,6 +40,13 @@ class TravelRequest(models.Model):
     cost_center = models.ForeignKey(CostCenter, on_delete=models.SET_NULL, null=True, blank=False)
     status = models.CharField(default='Wartet', max_length=30, choices=STATUS_CHOICES)
 
+    class Meta:
+        permissions = [
+            (
+                'is_supervisor', 'can access auth page'
+            )
+        ]
+
     def __str__(self):
         return f'{self.destination} {self.event}'
 
@@ -59,6 +66,13 @@ class TravelInvoice(models.Model):
     other_costs = models.IntegerField(blank=False)
     upload = models.FileField(upload_to='invoiceData/' + str(uuid.uuid4()), null=True, blank=True)
     status = models.CharField(default='Wartet', max_length=30, choices=STATUS_CHOICES)
+
+    class Meta:
+        permissions = [
+            (
+                'is_clerk', 'can access invoice page'
+            )
+        ]
 
     def __str__(self):
         return f'{self.hotel_costs} {self.transport_costs} {self.other_costs}'
