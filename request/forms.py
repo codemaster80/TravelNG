@@ -13,7 +13,8 @@ class RequestForm(ModelForm):
             'journey_start': 'Reisebeginn',
             'journey_end': 'Reiseende',
             'event_start': 'Dienstbeginn',
-            'event_end': 'Dienstende'
+            'event_end': 'Dienstende',
+            'transport': 'Transportmittel'
         }
         exclude = ['username', 'status']
         widgets = {
@@ -27,6 +28,10 @@ class InvoiceForm(ModelForm):
         labels = {
             'employee': 'Mitarbeiter',
             'travel_request_id': 'Reiseantrag',
+            'journey_start': 'Reisebeginn',
+            'journey_end': 'Reiseende',
+            'event_start': 'Dienstbeginn',
+            'event_end': 'Dienstende',
             'hotel_costs': 'Übernachtungskosten',
             'transport_costs': 'Transportkosten',
             'other_costs': 'Andere Kosten',
@@ -36,6 +41,10 @@ class InvoiceForm(ModelForm):
         widgets = {
             'destination': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'journey_start': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'journey_end': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'event_start': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'event_end': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'employee': TextInput(attrs={'readonly': 'readonly'})
         }
 
@@ -51,7 +60,8 @@ class AuthForm(ModelForm):
             'journey_start': 'Reisebeginn',
             'journey_end': 'Reiseende',
             'event_start': 'Dienstbeginn',
-            'event_end': 'Dienstende'
+            'event_end': 'Dienstende',
+            'transport': 'Transportmittel'
         }
         exclude = ['username']
         widgets = {
@@ -72,7 +82,7 @@ class RefundForm(ModelForm):
         model = TravelInvoice
         labels = {
             'employee': 'Mitarbeiter',
-            'travel_request_id': 'Reiseantrag',
+            'travel_request': 'Reiseantrag',
             'hotel_costs': 'Übernachtungskosten',
             'transport_costs': 'Transportkosten',
             'other_costs': 'Andere Kosten',
@@ -83,6 +93,10 @@ class RefundForm(ModelForm):
             'destination': TextInput(attrs={'readonly': 'readonly'}),
             'event': TextInput(attrs={'readonly': 'readonly'}),
             'employee': TextInput(attrs={'readonly': 'readonly'}),
+            'journey_start': TextInput(attrs={'readonly': 'readonly'}),
+            'journey_end': TextInput(attrs={'readonly': 'readonly'}),
+            'event_start': TextInput(attrs={'readonly': 'readonly'}),
+            'event_end': TextInput(attrs={'readonly': 'readonly'}),
             'hotel_costs': TextInput(attrs={'readonly': 'readonly'}),
             'transport_costs': TextInput(attrs={'readonly': 'readonly'}),
             'other_costs': TextInput(attrs={'readonly': 'readonly'}),

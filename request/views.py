@@ -84,6 +84,10 @@ def travel_invoice_details(request, pk=None):
             tr_data = TravelRequest.objects.get(id=ti.travel_request_id)
             ti.event = tr_data.event
             ti.destination = tr_data.destination
+            ti.journey_start = tr_data.journey_start
+            ti.journey_end = tr_data.journey_end
+            ti.event_start = tr_data.event_start
+            ti.event_end = tr_data.event_end
             form.save()
             messages.success(request, 'Gespeichert')
             return HttpResponseRedirect(reverse('home'))
