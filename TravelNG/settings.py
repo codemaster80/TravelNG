@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'request',
     'bootstrap5',
+    'mathfilters',
     'django_bootstrap_icons',
 ]
 

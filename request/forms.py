@@ -14,7 +14,7 @@ class RequestForm(ModelForm):
             'journey_end': 'Reiseende',
             'event_start': 'Dienstbeginn',
             'event_end': 'Dienstende',
-            'transport': 'Transportmittel'
+            'transport': 'Verkehrsmittel'
         }
         exclude = ['username', 'status']
         widgets = {
@@ -33,7 +33,7 @@ class InvoiceForm(ModelForm):
             'event_start': 'Dienstbeginn',
             'event_end': 'Dienstende',
             'hotel_costs': 'Übernachtungskosten',
-            'transport_costs': 'Transportkosten',
+            'transport_costs': 'Fahrtkosten',
             'other_costs': 'Andere Kosten',
             'upload': 'Belege hochladen'
         }
@@ -61,7 +61,7 @@ class AuthForm(ModelForm):
             'journey_end': 'Reiseende',
             'event_start': 'Dienstbeginn',
             'event_end': 'Dienstende',
-            'transport': 'Transportmittel'
+            'transport': 'Verkehrsmittel'
         }
         exclude = ['username']
         widgets = {
@@ -84,7 +84,7 @@ class RefundForm(ModelForm):
             'employee': 'Mitarbeiter',
             'travel_request': 'Reiseantrag',
             'hotel_costs': 'Übernachtungskosten',
-            'transport_costs': 'Transportkosten',
+            'transport_costs': 'Fahrtkosten',
             'other_costs': 'Andere Kosten',
             'upload': 'Belege hochladen'
         }

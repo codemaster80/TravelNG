@@ -14,7 +14,7 @@ from request.forms import *
 @login_required
 def home(request):
     travel_requests = TravelRequest.objects.all().order_by('journey_start')
-    travel_invoices = TravelInvoice.objects.all()
+    travel_invoices = TravelInvoice.objects.all().order_by('journey_start')
 
     return render(request, 'request/home.html',
                   {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices})

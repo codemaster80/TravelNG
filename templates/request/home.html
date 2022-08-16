@@ -1,5 +1,5 @@
 {% extends 'request/base.html' %}
-{% load bootstrap5 bootstrap_icons %}
+{% load bootstrap5 bootstrap_icons mathfilters %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
@@ -17,6 +17,7 @@
                         <th>Veranstaltung</th>
                         <th>Beginn</th>
                         <th>Ende</th>
+                        <th>Verkehrsmittel</th>
                         <th>Status</th>
                         <th>&nbsp;</th>
                     </tr>
@@ -30,6 +31,7 @@
                                 <td>{{ TravelRequest.event }}</td>
                                 <td>{{ TravelRequest.journey_start }}</td>
                                 <td>{{ TravelRequest.journey_end }}</td>
+                                <td>{{ TravelRequest.transport }}</td>
                                 <td>{{ TravelRequest.status }}</td>
                                 <td>
                                     <a class="mx-1"
@@ -57,9 +59,9 @@
                         <th>#</th>
                         <th>Reiseziel</th>
                         <th>Veranstaltung</th>
-                        <th>Übernachtungskosten</th>
-                        <th>Transportkosten</th>
-                        <th>Andere Kosten</th>
+                        <th>Beginn</th>
+                        <th>Ende</th>
+                        <th>Kosten</th>
                         <th>Status</th>
                         <th>&nbsp;</th>
                     </tr>
@@ -69,11 +71,11 @@
                         {% if TravelInvoice.username == user.get_username %}
                             <tr>
                                 <td>{{ TravelInvoice.id }}</td>
-                                <td>{{ TravelInvoice.hotel_costs }}</td>
-                                <td>{{ TravelInvoice.transport_costs }}</td>
-                                <td>{{ TravelInvoice.hotel_costs }}</td>
-                                <td>{{ TravelInvoice.transport_costs }}</td>
-                                <td>{{ TravelInvoice.other_costs }}</td>
+                                <td>{{ TravelInvoice.destination }}</td>
+                                <td>{{ TravelInvoice.event }}</td>
+                                <td>{{ TravelInvoice.journey_start }}</td>
+                                <td>{{ TravelInvoice.journey_end }}</td>
+                                <td>{{ TravelInvoice.hotel_costs|add:TravelInvoice.transport_costs|add:TravelInvoice.other_costs }}</td>
                                 <td>{{ TravelInvoice.status }}</td>
                                 <td>
                                     <a class="mx-1"
@@ -144,9 +146,9 @@
                             <th>#</th>
                             <th>Reiseziel</th>
                             <th>Veranstaltung</th>
-                            <th>Übernachtungskosten</th>
-                            <th>Transportkosten</th>
-                            <th>Andere Kosten</th>
+                            <th>Beginn</th>
+                            <th>Ende</th>
+                            <th>Kosten</th>
                             <th>Status</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -155,11 +157,11 @@
                         {% for TravelInvoice in travel_invoices %}
                             <tr>
                                 <td>{{ TravelInvoice.id }}</td>
-                                <td>{{ TravelInvoice.hotel_costs }}</td>
-                                <td>{{ TravelInvoice.transport_costs }}</td>
-                                <td>{{ TravelInvoice.hotel_costs }}</td>
-                                <td>{{ TravelInvoice.transport_costs }}</td>
-                                <td>{{ TravelInvoice.other_costs }}</td>
+                                <td>{{ TravelInvoice.destination }}</td>
+                                <td>{{ TravelInvoice.event }}</td>
+                                <td>{{ TravelInvoice.journey_start }}</td>
+                                <td>{{ TravelInvoice.journey_end }}</td>
+                                <td>{{ TravelInvoice.hotel_costs|add:TravelInvoice.transport_costs|add:TravelInvoice.other_costs }}</td>
                                 <td>{{ TravelInvoice.status }}</td>
                                 <td>
                                     <a class="mx-1"
