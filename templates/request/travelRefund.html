@@ -22,21 +22,23 @@
                     </thead>
                     <tbody class="table-group-divider">
                     {% for TravelInvoice in travel_invoices %}
-                        <tr>
-                            <td>{{ TravelInvoice.id }}</td>
-                            <td>{{ TravelInvoice.hotel_costs }}</td>
-                            <td>{{ TravelInvoice.transport_costs }}</td>
-                            <td>{{ TravelInvoice.hotel_costs }}</td>
-                            <td>{{ TravelInvoice.transport_costs }}</td>
-                            <td>{{ TravelInvoice.other_costs }}</td>
-                            <td>{{ TravelInvoice.status }}</td>
-                            <td>
-                                <a class="mx-1"
-                                   href="{% url 'editTravelRefund' TravelInvoice.id %}">{% bs_icon 'pencil' color='black' %}</a>
-                                <a class="mx-1"
-                                   href="{% url 'deleteTravelInvoice' TravelInvoice.id %}">{% bs_icon 'trash' color='black' %}</a>
-                            </td>
-                        </tr>
+                        {% if TravelInvoice.ti_status == 'In Bearbeitung' %}
+                            <tr>
+                                <td>{{ TravelInvoice.id }}</td>
+                                <td>{{ TravelInvoice.hotel_costs }}</td>
+                                <td>{{ TravelInvoice.transport_costs }}</td>
+                                <td>{{ TravelInvoice.hotel_costs }}</td>
+                                <td>{{ TravelInvoice.transport_costs }}</td>
+                                <td>{{ TravelInvoice.other_costs }}</td>
+                                <td>{{ TravelInvoice.ti_status }}</td>
+                                <td>
+                                    <a class="mx-1"
+                                       href="{% url 'editTravelRefund' TravelInvoice.id %}">{% bs_icon 'pencil' color='black' %}</a>
+                                    <a class="mx-1"
+                                       href="{% url 'deleteTravelInvoice' TravelInvoice.id %}">{% bs_icon 'trash' color='black' %}</a>
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>

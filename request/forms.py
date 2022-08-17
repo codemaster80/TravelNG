@@ -35,9 +35,10 @@ class InvoiceForm(ModelForm):
             'hotel_costs': 'Übernachtungskosten',
             'transport_costs': 'Fahrtkosten',
             'other_costs': 'Andere Kosten',
+            'ti_status': 'Status',
             'upload': 'Belege hochladen'
         }
-        exclude = ['username', 'status']
+        exclude = ['username', 'tr_status']
         widgets = {
             'destination': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
@@ -45,7 +46,8 @@ class InvoiceForm(ModelForm):
             'journey_end': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event_start': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event_end': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'employee': TextInput(attrs={'readonly': 'readonly'})
+            'employee': TextInput(attrs={'readonly': 'readonly'}),
+            'ti_status': TextInput(attrs={'readonly': 'readonly'})
         }
 
 
@@ -86,7 +88,9 @@ class RefundForm(ModelForm):
             'hotel_costs': 'Übernachtungskosten',
             'transport_costs': 'Fahrtkosten',
             'other_costs': 'Andere Kosten',
-            'upload': 'Belege hochladen'
+            'upload': 'Belege hochladen',
+            'tr_status': 'Status Reiseantrag',
+            'ti_status': 'Status Kostenerstattung'
         }
         exclude = ['username']
         widgets = {
@@ -100,5 +104,6 @@ class RefundForm(ModelForm):
             'hotel_costs': TextInput(attrs={'readonly': 'readonly'}),
             'transport_costs': TextInput(attrs={'readonly': 'readonly'}),
             'other_costs': TextInput(attrs={'readonly': 'readonly'}),
-            'upload': TextInput(attrs={'readonly': 'readonly'})
+            'upload': TextInput(attrs={'readonly': 'readonly'}),
+            'tr_status': TextInput(attrs={'readonly': 'readonly'})
         }

@@ -80,7 +80,6 @@ def travel_invoice_details(request, pk=None):
     if request.method == 'POST':
         form = InvoiceForm(request.POST, instance=ti)
         if form.is_valid():
-            form.save()
             tr_data = TravelRequest.objects.get(id=ti.travel_request_id)
             ti.event = tr_data.event
             ti.destination = tr_data.destination
@@ -88,6 +87,7 @@ def travel_invoice_details(request, pk=None):
             ti.journey_end = tr_data.journey_end
             ti.event_start = tr_data.event_start
             ti.event_end = tr_data.event_end
+            ti.tr_status = tr_data.status
             form.save()
             messages.success(request, 'Gespeichert')
             return HttpResponseRedirect(reverse('home'))

@@ -24,7 +24,7 @@ class Transport(models.Model):
 
 
 class TravelRequest(models.Model):
-    STATUS_CHOICES = [('Wartet', 'Wartet'),
+    STATUS_CHOICES = [('In Bearbeitung', 'In Bearbeitung'),
                       ('Genehmigt', 'Genehmigt'),
                       ]
 
@@ -38,7 +38,7 @@ class TravelRequest(models.Model):
     event_end = models.DateTimeField(default='01.01.2022 08:00', blank=False)
     transport = models.ForeignKey(Transport, on_delete=models.SET_NULL, null=True, blank=False)
     cost_center = models.ForeignKey(CostCenter, on_delete=models.SET_NULL, null=True, blank=False)
-    status = models.CharField(default='Wartet', max_length=30, choices=STATUS_CHOICES)
+    status = models.CharField(default='In Bearbeitung', max_length=30, choices=STATUS_CHOICES)
 
     class Meta:
         permissions = [
@@ -52,8 +52,8 @@ class TravelRequest(models.Model):
 
 
 class TravelInvoice(models.Model):
-    STATUS_CHOICES = [('Wartet', 'Wartet'),
-                      ('Genehmigt', 'Genehmigt'),
+    STATUS_CHOICES = [('In Bearbeitung', 'In Bearbeitung'),
+                      ('Auszahlung angewiesen', 'Auszahlung angewiesen'),
                       ]
 
     username = models.CharField(max_length=50, null=True, blank=False)
@@ -69,7 +69,8 @@ class TravelInvoice(models.Model):
     transport_costs = models.IntegerField(blank=False)
     other_costs = models.IntegerField(blank=False)
     upload = models.FileField(upload_to='invoiceData/' + str(uuid.uuid4()), null=True, blank=True)
-    status = models.CharField(default='Wartet', max_length=30, choices=STATUS_CHOICES)
+    tr_status = models.CharField(default='In Bearbeitung', max_length=30, null=True, blank=True)
+    ti_status = models.CharField(default='In Bearbeitung', max_length=30, choices=STATUS_CHOICES)
 
     class Meta:
         permissions = [

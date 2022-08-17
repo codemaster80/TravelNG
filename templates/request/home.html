@@ -76,7 +76,7 @@
                                 <td>{{ TravelInvoice.journey_start }}</td>
                                 <td>{{ TravelInvoice.journey_end }}</td>
                                 <td>{{ TravelInvoice.hotel_costs|add:TravelInvoice.transport_costs|add:TravelInvoice.other_costs }}</td>
-                                <td>{{ TravelInvoice.status }}</td>
+                                <td>{{ TravelInvoice.ti_status }}</td>
                                 <td>
                                     <a class="mx-1"
                                        href="{% url 'editTravelInvoice' TravelInvoice.id %}">{% bs_icon 'pencil' color='black' %}</a>
@@ -112,20 +112,22 @@
                         </thead>
                         <tbody class="table-group-divider">
                         {% for TravelRequest in travel_requests %}
-                            <tr>
-                                <td>{{ TravelRequest.id }}</td>
-                                <td>{{ TravelRequest.destination }}</td>
-                                <td>{{ TravelRequest.event }}</td>
-                                <td>{{ TravelRequest.journey_start }}</td>
-                                <td>{{ TravelRequest.journey_end }}</td>
-                                <td>{{ TravelRequest.status }}</td>
-                                <td>
-                                    <a class="mx-1"
-                                       href="{% url 'editTravelAuth' TravelRequest.id %}">{% bs_icon 'pencil' color='black' %}</a>
-                                    <a class="mx-1"
-                                       href="{% url 'deleteTravelRequest' TravelRequest.id %}">{% bs_icon 'trash' color='black' %}</a>
-                                </td>
-                            </tr>
+                            {% if TravelRequest.status == 'In Bearbeitung' %}
+                                <tr>
+                                    <td>{{ TravelRequest.id }}</td>
+                                    <td>{{ TravelRequest.destination }}</td>
+                                    <td>{{ TravelRequest.event }}</td>
+                                    <td>{{ TravelRequest.journey_start }}</td>
+                                    <td>{{ TravelRequest.journey_end }}</td>
+                                    <td>{{ TravelRequest.status }}</td>
+                                    <td>
+                                        <a class="mx-1"
+                                           href="{% url 'editTravelAuth' TravelRequest.id %}">{% bs_icon 'pencil' color='black' %}</a>
+                                        <a class="mx-1"
+                                           href="{% url 'deleteTravelRequest' TravelRequest.id %}">{% bs_icon 'trash' color='black' %}</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>
@@ -155,21 +157,23 @@
                         </thead>
                         <tbody class="table-group-divider">
                         {% for TravelInvoice in travel_invoices %}
-                            <tr>
-                                <td>{{ TravelInvoice.id }}</td>
-                                <td>{{ TravelInvoice.destination }}</td>
-                                <td>{{ TravelInvoice.event }}</td>
-                                <td>{{ TravelInvoice.journey_start }}</td>
-                                <td>{{ TravelInvoice.journey_end }}</td>
-                                <td>{{ TravelInvoice.hotel_costs|add:TravelInvoice.transport_costs|add:TravelInvoice.other_costs }}</td>
-                                <td>{{ TravelInvoice.status }}</td>
-                                <td>
-                                    <a class="mx-1"
-                                       href="{% url 'editTravelInvoice' TravelInvoice.id %}">{% bs_icon 'pencil' color='black' %}</a>
-                                    <a class="mx-1"
-                                       href="{% url 'deleteTravelInvoice' TravelInvoice.id %}">{% bs_icon 'trash' color='black' %}</a>
-                                </td>
-                            </tr>
+                            {% if TravelInvoice.ti_status == 'In Bearbeitung' %}
+                                <tr>
+                                    <td>{{ TravelInvoice.id }}</td>
+                                    <td>{{ TravelInvoice.destination }}</td>
+                                    <td>{{ TravelInvoice.event }}</td>
+                                    <td>{{ TravelInvoice.journey_start }}</td>
+                                    <td>{{ TravelInvoice.journey_end }}</td>
+                                    <td>{{ TravelInvoice.hotel_costs|add:TravelInvoice.transport_costs|add:TravelInvoice.other_costs }}</td>
+                                    <td>{{ TravelInvoice.ti_status }}</td>
+                                    <td>
+                                        <a class="mx-1"
+                                           href="{% url 'editTravelInvoice' TravelInvoice.id %}">{% bs_icon 'pencil' color='black' %}</a>
+                                        <a class="mx-1"
+                                           href="{% url 'deleteTravelInvoice' TravelInvoice.id %}">{% bs_icon 'trash' color='black' %}</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>
