@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 
@@ -35,5 +36,5 @@ urlpatterns = [
     re_path(r'^Invoice/Refund/Edit/(?P<pk>[0-9]+)/?$', request.views.travel_invoice_refund, name="editTravelRefund"),
     path('logout/', logout_view, {'next_page': settings.LOGOUT_REDIRECT_URL}, name="logout"),
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-]
+    path('accounts/', include('django.contrib.auth.urls'))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

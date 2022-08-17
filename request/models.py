@@ -8,6 +8,10 @@ from django.db.models.fields.files import FieldFile
 from django.utils import timezone
 
 
+def user_directory_path(instance, f_name):
+    return 'user_{0}/{1}'.format(instance.username, f_name)
+
+
 class CostCenter(models.Model):
     department = models.CharField(max_length=50)
     cost_center_number = models.IntegerField()
@@ -68,7 +72,7 @@ class TravelInvoice(models.Model):
     hotel_costs = models.IntegerField(blank=False)
     transport_costs = models.IntegerField(blank=False)
     other_costs = models.IntegerField(blank=False)
-    upload = models.FileField(upload_to='invoiceData/' + str(uuid.uuid4()), null=True, blank=True)
+    upload = models.FileField(upload_to=user_directory_path, null=True, blank=True)
     tr_status = models.CharField(default='In Bearbeitung', max_length=30, null=True, blank=True)
     ti_status = models.CharField(default='In Bearbeitung', max_length=30, choices=STATUS_CHOICES)
 

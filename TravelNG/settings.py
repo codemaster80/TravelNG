@@ -23,7 +23,7 @@ SECRET_KEY = 'django-insecure-fk3%s%7g9ll%vb_vprfpq28%b!f65-3ky=qd5hs-dy#uy!=0p4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
@@ -116,6 +116,7 @@ STATIC_URL = 'static/'
 
 # Uploaded files (PDF, Images)
 MEDIA_ROOT = 'request/upload/'
+MEDIA_URL = 'request/upload/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
