@@ -104,6 +104,6 @@ class RefundForm(ModelForm):
             'hotel_costs': TextInput(attrs={'readonly': 'readonly'}),
             'transport_costs': TextInput(attrs={'readonly': 'readonly'}),
             'other_costs': TextInput(attrs={'readonly': 'readonly'}),
-            'upload': TextInput(attrs={'readonly': 'readonly'}),
+            # 'upload': TextInput(attrs={'readonly': 'readonly'}),
             'tr_status': TextInput(attrs={'readonly': 'readonly'})
         }

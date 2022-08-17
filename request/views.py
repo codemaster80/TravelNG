@@ -78,7 +78,7 @@ def travel_invoice_details(request, pk=None):
         sub_title = 'Antrag ändern'
 
     if request.method == 'POST':
-        form = InvoiceForm(request.POST, instance=ti)
+        form = InvoiceForm(request.POST, request.FILES, instance=ti)
         if form.is_valid():
             tr_data = TravelRequest.objects.get(id=ti.travel_request_id)
             ti.event = tr_data.event
