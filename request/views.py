@@ -160,28 +160,43 @@ def travel_invoice_refund(request, pk=None):
 
 
 @login_required
-def create_pdf_document(request, pk=None):
-    ti_data = TravelInvoice.objects.get(id=pk)
+def create_pdf_document(request, pdf=None, pk=None):
+    pk = pk
     buffer = io.BytesIO()
     page = canvas.Canvas(buffer, pagesize=A4, bottomup=0)
 
     # draw page
     text = page.beginText()
     text.setTextOrigin(cm, cm)
-    text.setFont("Helvetica", 12)
+    text.setFont("Helvetica", 12, leading=20)
 
-    lines = [
-        'Mitarbeiter: ' + ti_data.employee,
-        'Reiseziel: ' + ti_data.destination,
-        'Veranstaltung: ' + ti_data.event,
-        'Reisebeginn: ' + str(ti_data.journey_start),
-        'Reiseende: ' + str(ti_data.journey_end),
-        'Dienstbeginn: ' + str(ti_data.event_start),
-        'Dienstende: ' + str(ti_data.event_end),
-        'Übernachtungskosten: ' + str(ti_data.hotel_costs),
-        'Fahrtkosten: ' + str(ti_data.transport_costs),
-        'Nebenkosten: ' + str(ti_data.other_costs),
-    ]
+    if pdf is 'tr':
+        tr_data = TravelRequest.objects.get(id=pk)
+        lines = [
+            'Mitarbeiter: ' + tr_data.employee,
+            'Reiseziel: ' + tr_data.destination,
+            'Veranstaltung: ' + tr_data.event,
+            'Reisebeginn: ' + str(tr_data.journey_start),
+            'Reiseende: ' + str(tr_data.journey_end),
+            'Dienstbeginn: ' + str(tr_data.event_start),
+            'Dienstende: ' + str(tr_data.event_end),
+            'Transportmittel: ' + str(tr_data.transport),
+            'Kostenstelle: ' + str(tr_data.cost_center)
+        ]
+    else:
+        ti_data = TravelInvoice.objects.get(id=pk)
+        lines = [
+            'Mitarbeiter: ' + ti_data.employee,
+            'Reiseziel: ' + ti_data.destination,
+            'Veranstaltung: ' + ti_data.event,
+            'Reisebeginn: ' + str(ti_data.journey_start),
+            'Reiseende: ' + str(ti_data.journey_end),
+            'Dienstbeginn: ' + str(ti_data.event_start),
+            'Dienstende: ' + str(ti_data.event_end),
+            'Übernachtungskosten: ' + str(ti_data.hotel_costs),
+            'Fahrtkosten: ' + str(ti_data.transport_costs),
+            'Nebenkosten: ' + str(ti_data.other_costs),
+        ]
 
     for line in lines:
         text.textLine(line)
@@ -190,7 +205,7 @@ def create_pdf_document(request, pk=None):
     page.showPage()
     page.save()
     buffer.seek(0)
-    return FileResponse(buffer, as_attachment=True, filename='Travel-Invoice.pdf')
+    return FileResponse(buffer, as_attachment=True, filename='Travel-PDF.pdf')
 
 
 def logout_view(request):
