@@ -170,6 +170,8 @@
                                         <a class="mx-1"
                                            href="{% url 'editTravelInvoice' TravelInvoice.id %}">{% bs_icon 'pencil' color='black' %}</a>
                                         <a class="mx-1"
+                                           href="{% url 'createPdfDocument' TravelInvoice.id %}">{% bs_icon 'printer' color='black' %}</a>
+                                        <a class="mx-1"
                                            href="{% url 'deleteTravelInvoice' TravelInvoice.id %}">{% bs_icon 'trash' color='black' %}</a>
                                     </td>
                                 </tr>

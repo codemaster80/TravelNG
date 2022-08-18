@@ -34,6 +34,7 @@ urlpatterns = [
     re_path(r'^Auth/Edit/(?P<pk>[0-9]+)/?$', request.views.travel_auth_details, name="editTravelAuth"),
     re_path(r'^Invoice/Refund/$', request.views.travel_invoice_refund, name="travelInvoiceRefund"),
     re_path(r'^Invoice/Refund/Edit/(?P<pk>[0-9]+)/?$', request.views.travel_invoice_refund, name="editTravelRefund"),
+    re_path(r'^Invoice/pdf/(?P<pk>[0-9]+)/?$', request.views.create_pdf_document, name="createPdfDocument"),
     path('logout/', logout_view, {'next_page': settings.LOGOUT_REDIRECT_URL}, name="logout"),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls'))

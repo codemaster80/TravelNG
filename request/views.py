@@ -1,11 +1,14 @@
-import time
+import io
 
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, FileResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.pdfgen import canvas
 
 from request.forms import *
 
@@ -154,6 +157,40 @@ def travel_invoice_refund(request, pk=None):
 
     return render(request, 'request/travelForm.html',
                   {'page_title': page_title, 'sub_title': sub_title, 'form': form})
+
+
+@login_required
+def create_pdf_document(request, pk=None):
+    ti_data = TravelInvoice.objects.get(id=pk)
+    buffer = io.BytesIO()
+    page = canvas.Canvas(buffer, pagesize=A4, bottomup=0)
+
+    # draw page
+    text = page.beginText()
+    text.setTextOrigin(cm, cm)
+    text.setFont("Helvetica", 12)
+
+    lines = [
+        'Mitarbeiter: ' + ti_data.employee,
+        'Reiseziel: ' + ti_data.destination,
+        'Veranstaltung: ' + ti_data.event,
+        'Reisebeginn: ' + str(ti_data.journey_start),
+        'Reiseende: ' + str(ti_data.journey_end),
+        'Dienstbeginn: ' + str(ti_data.event_start),
+        'Dienstende: ' + str(ti_data.event_end),
+        'Übernachtungskosten: ' + str(ti_data.hotel_costs),
+        'Fahrtkosten: ' + str(ti_data.transport_costs),
+        'Nebenkosten: ' + str(ti_data.other_costs),
+    ]
+
+    for line in lines:
+        text.textLine(line)
+
+    page.drawText(text)
+    page.showPage()
+    page.save()
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename='Travel-Invoice.pdf')
 
 
 def logout_view(request):
