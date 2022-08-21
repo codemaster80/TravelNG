@@ -1,6 +1,7 @@
 import uuid
 from fileinput import filename
 
+from django.core.exceptions import ValidationError
 from django.db import models
 
 # Create your models here.
@@ -10,6 +11,11 @@ from django.utils import timezone
 
 def user_directory_path(instance, f_name):
     return 'user_{0}/{1}'.format(instance.username, f_name)
+
+
+def upload_validator(file):
+    if not file.name.endswith('.pdf'):
+        raise ValidationError(u'Dateiformat wird nicht unterstützt!')
 
 
 class CostCenter(models.Model):
@@ -72,7 +78,7 @@ class TravelInvoice(models.Model):
     hotel_costs = models.IntegerField(blank=False)
     transport_costs = models.IntegerField(blank=False)
     other_costs = models.IntegerField(blank=False)
-    upload = models.FileField(upload_to=user_directory_path, null=True, blank=True)
+    upload = models.FileField(upload_to=user_directory_path, validators=[upload_validator], null=True, blank=True)
     tr_status = models.CharField(default='In Bearbeitung', max_length=30, null=True, blank=True)
     ti_status = models.CharField(default='In Bearbeitung', max_length=30, choices=STATUS_CHOICES)
 
