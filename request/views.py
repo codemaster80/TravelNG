@@ -170,9 +170,11 @@ def create_pdf_document(request, pdf=None, pk=None):
     text.setTextOrigin(cm, cm)
     text.setFont("Helvetica", 12, leading=20)
 
-    if pdf is 'tr':
+    if pdf == 'tr':
         tr_data = TravelRequest.objects.get(id=pk)
         lines = [
+            'Reiseantrag',
+            ' ',
             'Mitarbeiter: ' + tr_data.employee,
             'Reiseziel: ' + tr_data.destination,
             'Veranstaltung: ' + tr_data.event,
@@ -186,6 +188,8 @@ def create_pdf_document(request, pdf=None, pk=None):
     else:
         ti_data = TravelInvoice.objects.get(id=pk)
         lines = [
+            'Reisekostenabrechnung',
+            ' ',
             'Mitarbeiter: ' + ti_data.employee,
             'Reiseziel: ' + ti_data.destination,
             'Veranstaltung: ' + ti_data.event,
