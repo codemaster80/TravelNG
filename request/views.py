@@ -1,4 +1,5 @@
 import io
+import os.path
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -62,10 +63,12 @@ def delete_travel_request(request, item_id):
 @login_required
 def delete_travel_invoice(request, item_id):
     ti = TravelInvoice.objects.get(id=item_id)
+    print(ti.upload.path)
+    if os.path.exists(ti.upload.path):
+        os.remove(ti.upload.path)
     ti.delete()
     messages.success(request, 'Gelöscht')
     return HttpResponseRedirect(reverse('home'))
-
 
 @login_required
 def travel_invoice_details(request, pk=None):
