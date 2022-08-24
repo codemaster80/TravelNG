@@ -26,17 +26,20 @@ def home(request):
 
 @login_required
 def travel_request_details(request, pk=None):
+    # new request
     if pk is None:
         tr = TravelRequest()
         tr.username = request.user.get_username()
         tr.employee = request.user.get_full_name()
         page_title = 'Reiseantrag'
         sub_title = 'Antrag erstellen'
+    # edit request
     else:
         tr = get_object_or_404(TravelRequest, pk=pk)
         page_title = 'Reiseantrag'
         sub_title = 'Antrag ändern'
 
+    # if submit button pressed
     if request.method == 'POST':
         form = RequestForm(request.POST, instance=tr)
         if form.is_valid():
@@ -72,17 +75,20 @@ def delete_travel_invoice(request, item_id):
 
 @login_required
 def travel_invoice_details(request, pk=None):
+    # new invoice
     if pk is None:
         ti = TravelInvoice()
         ti.username = request.user.get_username()
         ti.employee = request.user.get_full_name()
         page_title = 'Reisekostenerstattung'
         sub_title = 'Antrag erstellen'
+    # edit invoice
     else:
         ti = get_object_or_404(TravelInvoice, pk=pk)
         page_title = 'Reisekostenerstattung'
         sub_title = 'Antrag ändern'
 
+    # if submit button pressed
     if request.method == 'POST':
         form = InvoiceForm(request.POST, request.FILES, instance=ti)
         if form.is_valid():

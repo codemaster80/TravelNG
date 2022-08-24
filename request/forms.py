@@ -18,7 +18,7 @@ class RequestForm(ModelForm):
         }
         exclude = ['username', 'status']
         widgets = {
-            'employee': TextInput(attrs={'readonly': 'readonly'})
+            'employee': TextInput(attrs={'readonly': 'readonly'}),
         }
 
 

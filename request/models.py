@@ -42,7 +42,7 @@ class TravelRequest(models.Model):
     employee = models.CharField(max_length=50, null=True, blank=False)
     destination = models.CharField(max_length=50, blank=False)
     event = models.CharField(max_length=50, blank=False)
-    journey_start = models.DateTimeField(default='01.01.2022 08:00', blank=False)
+    journey_start = models.DateTimeField(default=timezone.now, blank=False)
     journey_end = models.DateTimeField(default='01.01.2022 08:00', blank=False)
     event_start = models.DateTimeField(default='01.01.2022 08:00', blank=False)
     event_end = models.DateTimeField(default='01.01.2022 08:00', blank=False)
