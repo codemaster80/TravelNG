@@ -78,7 +78,8 @@ class TravelInvoice(models.Model):
     hotel_costs = models.IntegerField(blank=False)
     transport_costs = models.IntegerField(blank=False)
     other_costs = models.IntegerField(blank=False)
-    upload = models.FileField(upload_to=user_directory_path, default='no_file', validators=[upload_validator], null=True, blank=True)
+    upload = models.FileField(upload_to=user_directory_path, default=None, validators=[upload_validator], null=True,
+                              blank=True)
     tr_status = models.CharField(default='In Bearbeitung', max_length=30, null=True, blank=True)
     ti_status = models.CharField(default='In Bearbeitung', max_length=30, choices=STATUS_CHOICES)
 
@@ -89,5 +90,5 @@ class TravelInvoice(models.Model):
             )
         ]
 
-    def __str__(self):
-        return f'{self.hotel_costs} {self.transport_costs} {self.other_costs}'
+        def __str__(self):
+            return f'{self.hotel_costs} {self.transport_costs} {self.other_costs}'

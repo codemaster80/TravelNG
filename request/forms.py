@@ -27,7 +27,7 @@ class InvoiceForm(ModelForm):
         model = TravelInvoice
         labels = {
             'employee': 'Mitarbeiter',
-            'travel_request_id': 'Reiseantrag',
+            'travel_request': 'Reiseantrag',
             'journey_start': 'Reisebeginn',
             'journey_end': 'Reiseende',
             'event_start': 'Dienstbeginn',
