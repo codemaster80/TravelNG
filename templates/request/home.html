@@ -106,6 +106,7 @@
                         <thead class="">
                         <tr>
                             <th>#</th>
+                            <th>Mitarbeiter</th>
                             <th>Reiseziel</th>
                             <th>Veranstaltung</th>
                             <th>Beginn</th>
@@ -115,10 +116,11 @@
                         </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                        {% for TravelRequest in travel_requests %}
+                        {% for TravelRequest in travel_auth %}
                             {% if TravelRequest.status == 'In Bearbeitung' %}
                                 <tr>
                                     <td>{{ TravelRequest.id }}</td>
+                                    <td>{{ TravelRequest.employee }}</td>
                                     <td>{{ TravelRequest.destination }}</td>
                                     <td>{{ TravelRequest.event }}</td>
                                     <td>{{ TravelRequest.journey_start }}</td>
@@ -152,6 +154,7 @@
                         <thead class="">
                         <tr>
                             <th>#</th>
+                            <th>Mitarbeiter</th>
                             <th>Reiseziel</th>
                             <th>Veranstaltung</th>
                             <th>Beginn</th>
@@ -162,10 +165,11 @@
                         </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                        {% for TravelInvoice in travel_invoices %}
+                        {% for TravelInvoice in travel_refund %}
                             {% if TravelInvoice.ti_status == 'In Bearbeitung' %}
                                 <tr>
                                     <td>{{ TravelInvoice.id }}</td>
+                                    <td>{{ TravelInvoice.employee }}</td>
                                     <td>{{ TravelInvoice.destination }}</td>
                                     <td>{{ TravelInvoice.event }}</td>
                                     <td>{{ TravelInvoice.journey_start }}</td>

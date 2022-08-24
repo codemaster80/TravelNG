@@ -11,6 +11,7 @@
                     <thead class="">
                     <tr>
                         <th>#</th>
+                        <th>Mitarbeiter</th>
                         <th>Reiseziel</th>
                         <th>Veranstaltung</th>
                         <th>Übernachtungskosten</th>
@@ -25,6 +26,7 @@
                         {% if TravelInvoice.ti_status == 'In Bearbeitung' %}
                             <tr>
                                 <td>{{ TravelInvoice.id }}</td>
+                                <td>{{ TravelInvoice.employee }}</td>
                                 <td>{{ TravelInvoice.hotel_costs }}</td>
                                 <td>{{ TravelInvoice.transport_costs }}</td>
                                 <td>{{ TravelInvoice.hotel_costs }}</td>

@@ -4,6 +4,7 @@ import os.path
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.db.models.sql import AND
 from django.http import HttpResponseRedirect, FileResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -17,11 +18,35 @@ from request.forms import *
 # Create your views here.
 @login_required
 def home(request):
-    travel_requests = TravelRequest.objects.all().order_by('journey_start')
-    travel_invoices = TravelInvoice.objects.all().order_by('journey_start')
+    if request.user.get_username() == 'admin':
+        print('User is admin')
+        travel_requests = TravelRequest.objects.all().order_by('journey_start')
+        travel_invoices = TravelInvoice.objects.all().order_by('journey_start')
+        return render(request, 'request/home.html',
+                      {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices})
+    elif request.user.has_perm('request.is_supervisor'):
+        print('user is supervisor')
+        travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by('journey_start')
+        travel_invoices = TravelInvoice.objects.filter(username=request.user.get_username()).order_by('journey_start')
+        travel_auth = TravelRequest.objects.filter(status='In Bearbeitung').order_by('journey_start')
+        return render(request, 'request/home.html',
+                      {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices, 'travel_auth': travel_auth})
 
-    return render(request, 'request/home.html',
-                  {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices})
+    elif request.user.has_perm('request.is_clerk'):
+        print('User is clerk')
+        travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by('journey_start')
+        travel_invoices = TravelInvoice.objects.filter(username=request.user.get_username()).order_by('journey_start')
+        travel_refund = TravelInvoice.objects.filter(tr_status='Genehmigt').filter(ti_status='In Bearbeitung').order_by('journey_start')
+        return render(request, 'request/home.html',
+                      {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices, 'travel_refund': travel_refund})
+    else:
+        print("User is employee")
+        travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by('journey_start')
+        travel_invoices = TravelInvoice.objects.filter(username=request.user.get_username()).order_by('journey_start')
+        return render(request, 'request/home.html',
+                      {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices})
+
+
 
 
 @login_required
@@ -66,12 +91,13 @@ def delete_travel_request(request, item_id):
 @login_required
 def delete_travel_invoice(request, item_id):
     ti = TravelInvoice.objects.get(id=item_id)
-    print(ti.upload.path)
+    # print(ti.upload.path)
     if os.path.exists(ti.upload.path):
         os.remove(ti.upload.path)
     ti.delete()
     messages.success(request, 'Gelöscht')
     return HttpResponseRedirect(reverse('home'))
+
 
 @login_required
 def travel_invoice_details(request, pk=None):

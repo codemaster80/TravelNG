@@ -11,6 +11,7 @@
                     <thead class="">
                     <tr>
                         <th>#</th>
+                        <th>Mitarbeiter</th>
                         <th>Reiseziel</th>
                         <th>Veranstaltung</th>
                         <th>Beginn</th>
@@ -24,6 +25,7 @@
                         {% if TravelRequest.status == 'In Bearbeitung' %}
                             <tr>
                                 <td>{{ TravelRequest.id }}</td>
+                                <td>{{ TravelRequest.employee }}</td>
                                 <td>{{ TravelRequest.destination }}</td>
                                 <td>{{ TravelRequest.event }}</td>
                                 <td>{{ TravelRequest.journey_start }}</td>

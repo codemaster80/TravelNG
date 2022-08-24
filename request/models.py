@@ -42,7 +42,7 @@ class TravelRequest(models.Model):
     employee = models.CharField(max_length=50, null=True, blank=False)
     destination = models.CharField(max_length=50, blank=False)
     event = models.CharField(max_length=50, blank=False)
-    journey_start = models.DateTimeField(default=timezone.now, blank=False)
+    journey_start = models.DateTimeField(default='01.01.2022 08:00', blank=False)
     journey_end = models.DateTimeField(default='01.01.2022 08:00', blank=False)
     event_start = models.DateTimeField(default='01.01.2022 08:00', blank=False)
     event_end = models.DateTimeField(default='01.01.2022 08:00', blank=False)
@@ -78,7 +78,7 @@ class TravelInvoice(models.Model):
     hotel_costs = models.IntegerField(blank=False)
     transport_costs = models.IntegerField(blank=False)
     other_costs = models.IntegerField(blank=False)
-    upload = models.FileField(upload_to=user_directory_path, validators=[upload_validator], null=True, blank=True)
+    upload = models.FileField(upload_to=user_directory_path, default='no_file', validators=[upload_validator], null=True, blank=True)
     tr_status = models.CharField(default='In Bearbeitung', max_length=30, null=True, blank=True)
     ti_status = models.CharField(default='In Bearbeitung', max_length=30, choices=STATUS_CHOICES)
 
