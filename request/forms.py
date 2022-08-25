@@ -1,4 +1,6 @@
 from django.forms import *
+from django.http import request
+
 from request.models import *
 
 
@@ -23,6 +25,10 @@ class RequestForm(ModelForm):
 
 
 class InvoiceForm(ModelForm):
+    ti = TravelInvoice()
+    print("user" + str())
+    travel_request = ModelChoiceField(queryset=TravelRequest.objects.filter(username='Max.Traveller'))
+
     class Meta:
         model = TravelInvoice
         labels = {
