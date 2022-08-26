@@ -27,7 +27,7 @@ class RequestForm(ModelForm):
 
 class InvoiceForm(ModelForm):
 
-    travel_request = ModelChoiceField(queryset=TravelRequest.objects.filter(username='Max.Traveller'))
+    # travel_request = ModelChoiceField(queryset=TravelRequest.objects.filter(username='Max.Traveller'))
 
     class Meta:
         model = TravelInvoice
