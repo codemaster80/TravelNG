@@ -26,7 +26,7 @@ class RequestForm(ModelForm):
 
 
 class InvoiceForm(ModelForm):
-    print("forms.py: " + travel.config.ti_username)
+
     travel_request = ModelChoiceField(queryset=TravelRequest.objects.filter(username='Max.Traveller'))
 
     class Meta:

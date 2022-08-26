@@ -133,7 +133,6 @@ def travel_invoice_details(request, pk=None):
         else:
             messages.error(request, 'Bitte Fehler korrigieren')
     else:
-        travel.config.ti_username = ti.username
         form = InvoiceForm(instance=ti)
 
     return render(request, 'request/travelForm.html',
