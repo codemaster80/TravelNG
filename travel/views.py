@@ -22,14 +22,14 @@ def home(request):
         print('User is admin')
         travel_requests = TravelRequest.objects.all().order_by('journey_start')
         travel_invoices = TravelInvoice.objects.all().order_by('journey_start')
-        return render(request, 'request/home.html',
+        return render(request, 'travel/home.html',
                       {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices})
     elif request.user.has_perm('travel.is_supervisor'):
         print('user is supervisor')
         travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by('journey_start')
         travel_invoices = TravelInvoice.objects.filter(username=request.user.get_username()).order_by('journey_start')
         travel_auth = TravelRequest.objects.filter(status='In Bearbeitung').order_by('journey_start')
-        return render(request, 'request/home.html',
+        return render(request, 'travel/home.html',
                       {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices,
                        'travel_auth': travel_auth})
 
@@ -39,14 +39,14 @@ def home(request):
         travel_invoices = TravelInvoice.objects.filter(username=request.user.get_username()).order_by('journey_start')
         travel_refund = TravelInvoice.objects.filter(tr_status='Genehmigt').filter(ti_status='In Bearbeitung').order_by(
             'journey_start')
-        return render(request, 'request/home.html',
+        return render(request, 'travel/home.html',
                       {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices,
                        'travel_refund': travel_refund})
     else:
         print("User is employee")
         travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by('journey_start')
         travel_invoices = TravelInvoice.objects.filter(username=request.user.get_username()).order_by('journey_start')
-        return render(request, 'request/home.html',
+        return render(request, 'travel/home.html',
                       {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices})
 
 
@@ -77,7 +77,7 @@ def travel_request_details(request, pk=None):
     else:
         form = RequestForm(instance=tr)
 
-    return render(request, 'request/travelForm.html',
+    return render(request, 'travel/travelForm.html',
                   {'page_title': page_title, 'sub_title': sub_title, 'form': form})
 
 
@@ -135,7 +135,7 @@ def travel_invoice_details(request, pk=None):
     else:
         form = InvoiceForm(instance=ti)
 
-    return render(request, 'request/travelForm.html',
+    return render(request, 'travel/travelForm.html',
                   {'page_title': page_title, 'sub_title': sub_title, 'form': form})
 
 
@@ -145,7 +145,7 @@ def travel_auth_details(request, pk=None):
     sub_title = 'Antrag genehmigen'
     if pk is None:
         travel_requests = TravelRequest.objects.all().order_by('journey_start')
-        return render(request, 'request/travelAuth.html',
+        return render(request, 'travel/travelAuth.html',
                       {'page_title': page_title, 'sub_title': sub_title, 'travel_requests': travel_requests})
 
     tr = get_object_or_404(TravelRequest, pk=pk)
@@ -161,7 +161,7 @@ def travel_auth_details(request, pk=None):
     else:
         form = AuthForm(instance=tr)
 
-    return render(request, 'request/travelForm.html',
+    return render(request, 'travel/travelForm.html',
                   {'page_title': page_title, 'sub_title': sub_title, 'form': form})
 
 
@@ -169,7 +169,7 @@ def travel_auth_details(request, pk=None):
 def travel_invoice_refund(request, pk=None):
     if pk is None:
         travel_invoices = TravelInvoice.objects.all()
-        return render(request, 'request/travelRefund.html',
+        return render(request, 'travel/travelRefund.html',
                       {'travel_invoices': travel_invoices})
     else:
         ti = get_object_or_404(TravelInvoice, pk=pk)
@@ -191,7 +191,7 @@ def travel_invoice_refund(request, pk=None):
     else:
         form = RefundForm(instance=ti)
 
-    return render(request, 'request/travelForm.html',
+    return render(request, 'travel/travelForm.html',
                   {'page_title': page_title, 'sub_title': sub_title, 'form': form})
 
 
