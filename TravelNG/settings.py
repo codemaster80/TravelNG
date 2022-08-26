@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'request',
+    'travel',
     'bootstrap5',
     'mathfilters',
     'django_bootstrap_icons',
@@ -115,8 +115,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # Uploaded files (PDF, Images)
-MEDIA_ROOT = 'request/upload/'
-MEDIA_URL = 'request/upload/'
+MEDIA_ROOT = 'travel/upload/'
+MEDIA_URL = 'travel/upload/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
