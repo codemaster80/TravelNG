@@ -33,13 +33,13 @@
                         <a class="nav-link"
                            href="{% url 'addTravelInvoice' %}">{% bs_icon 'bank' %}Erstattungsantrag</a>
                     </li>
-                    {% if perms.request.is_supervisor %}
+                    {% if perms.travel.is_supervisor %}
                         <li class="nav-item">
                             <a class="nav-link"
                                href="{% url 'travelAuth' %}">{% bs_icon 'bag-check' %}Reisegenehmigung</a>
                         </li>
                     {% endif %}
-                    {% if perms.request.is_clerk %}
+                    {% if perms.travel.is_clerk %}
                         <li class="nav-item">
                             <a class="nav-link"
                                href="{% url 'travelInvoiceRefund' %}">{% bs_icon 'cash-coin' %}Reiseabrechnung</a>

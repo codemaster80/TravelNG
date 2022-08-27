@@ -80,7 +80,7 @@ class TravelInvoice(models.Model):
     other_costs = models.IntegerField(blank=False)
     upload = models.FileField(upload_to=user_directory_path, default=None, validators=[upload_validator], null=True,
                               blank=True)
-    tr_status = models.CharField(default='In Bearbeitung', max_length=30, null=True, blank=True)
+    tr_status = models.CharField(max_length=30, null=True, blank=True)
     ti_status = models.CharField(default='In Bearbeitung', max_length=30, choices=STATUS_CHOICES)
 
     class Meta:

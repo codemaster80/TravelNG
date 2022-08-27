@@ -117,16 +117,21 @@ def travel_invoice_details(request, pk=None):
 
     # if submit button pressed
     if request.method == 'POST':
+        post_data = request.POST.copy()
+        tr_data = TravelRequest.objects.get(id=post_data['travel_request'])
+        post_data.update({
+            'event': tr_data.event,
+            'destination': tr_data.destination,
+            'journey_start': tr_data.journey_start,
+            'journey_end': tr_data.journey_end,
+            'event_start': tr_data.event_start,
+            'event_end': tr_data.event_end,
+            'tr_status': tr_data.status
+        })
+        request.POST = post_data
         form = InvoiceForm(request.POST, request.FILES, instance=ti)
+        # check form is valid
         if form.is_valid():
-            tr_data = TravelRequest.objects.get(id=ti.travel_request_id)
-            ti.event = tr_data.event
-            ti.destination = tr_data.destination
-            ti.journey_start = tr_data.journey_start
-            ti.journey_end = tr_data.journey_end
-            ti.event_start = tr_data.event_start
-            ti.event_end = tr_data.event_end
-            ti.tr_status = tr_data.status
             form.save()
             messages.success(request, 'Gespeichert')
             return HttpResponseRedirect(reverse('home'))

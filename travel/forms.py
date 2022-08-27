@@ -1,7 +1,4 @@
 from django.forms import *
-
-import travel
-from travel import config
 from travel.models import *
 
 
@@ -41,21 +38,28 @@ class InvoiceForm(ModelForm):
             'hotel_costs': 'Übernachtungskosten',
             'transport_costs': 'Fahrtkosten',
             'other_costs': 'Andere Kosten',
-            'ti_status': 'Status',
+            'tr_status': 'Reiseantrag Status',
             'upload': 'Belege hochladen'
         }
-        exclude = ['username', 'tr_status']
+        exclude = ['ti_status']
         widgets = {
             'destination': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'journey_start': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'journey_end': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'event_start': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'event_end': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'journey_start': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'journey_end': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'event_start': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'event_end': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'employee': TextInput(attrs={'readonly': 'readonly'}),
-            'ti_status': TextInput(attrs={'readonly': 'readonly'})
+            # 'tr_status': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'})
         }
 
+    def clean(self):
+        super(InvoiceForm, self).clean()
+        tr_status = self.cleaned_data.get('tr_status')
+        if tr_status != 'Genehmigt':
+            self.errors['tr_status'] = self.error_class(['Reiseantrag ist nicht genehmigt!'])
+
+        return self.cleaned_data
 
 class AuthForm(ModelForm):
     class Meta:
@@ -76,12 +80,12 @@ class AuthForm(ModelForm):
             'employee': TextInput(attrs={'readonly': 'readonly'}),
             'destination': TextInput(attrs={'readonly': 'readonly'}),
             'event': TextInput(attrs={'readonly': 'readonly'}),
-            'cost_center': TextInput(attrs={'readonly': 'readonly'}),
-            'journey_start': TextInput(attrs={'readonly': 'readonly'}),
-            'journey_end': TextInput(attrs={'readonly': 'readonly'}),
-            'event_start': TextInput(attrs={'readonly': 'readonly'}),
-            'event_end': TextInput(attrs={'readonly': 'readonly'}),
-            'transport': TextInput(attrs={'readonly': 'readonly'})
+            'cost_center': Select(attrs={'readonly': 'readonly'}),
+            'journey_start': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'journey_end': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'event_start': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'event_end': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'transport': Select(attrs={'readonly': 'readonly'})
         }
 
 
@@ -103,10 +107,10 @@ class RefundForm(ModelForm):
             'destination': TextInput(attrs={'readonly': 'readonly'}),
             'event': TextInput(attrs={'readonly': 'readonly'}),
             'employee': TextInput(attrs={'readonly': 'readonly'}),
-            'journey_start': TextInput(attrs={'readonly': 'readonly'}),
-            'journey_end': TextInput(attrs={'readonly': 'readonly'}),
-            'event_start': TextInput(attrs={'readonly': 'readonly'}),
-            'event_end': TextInput(attrs={'readonly': 'readonly'}),
+            'journey_start': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'journey_end': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'event_start': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'event_end': DateTimeInput(attrs={'readonly': 'readonly'}),
             'hotel_costs': TextInput(attrs={'readonly': 'readonly'}),
             'transport_costs': TextInput(attrs={'readonly': 'readonly'}),
             'other_costs': TextInput(attrs={'readonly': 'readonly'}),

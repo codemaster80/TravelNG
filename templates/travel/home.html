@@ -97,7 +97,7 @@
 
         <div class="my-5"></div>
 
-        {% if perms.request.is_supervisor %}
+        {% if perms.travel.is_supervisor %}
             <div class="card" style="width: 100%;">
                 <div class="card-body">
                     <h5 class="card-title">Reisegenehmigung</h5>
@@ -145,7 +145,7 @@
 
         <div class="my-5"></div>
 
-        {% if perms.request.is_clerk %}
+        {% if perms.travel.is_clerk %}
             <div class="card" style="width: 100%;">
                 <div class="card-body">
                     <h5 class="card-title">Reiseabrechnung</h5>
