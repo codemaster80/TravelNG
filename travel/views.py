@@ -174,7 +174,8 @@ def travel_auth_details(request, pk=None):
 @login_required
 def travel_invoice_refund(request, pk=None):
     if pk is None:
-        travel_invoices = TravelInvoice.objects.all()
+        travel_invoices = TravelInvoice.objects.filter(tr_status='Genehmigt').filter(ti_status='In Bearbeitung').order_by(
+            'journey_start')
         return render(request, 'travel/travelRefund.html',
                       {'travel_invoices': travel_invoices})
     else:

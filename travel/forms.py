@@ -41,7 +41,7 @@ class InvoiceForm(ModelForm):
             'tr_status': 'Reiseantrag Status',
             'upload': 'Belege hochladen'
         }
-        exclude = ['ti_status']
+        exclude = ['username', 'ti_status']
         widgets = {
             'destination': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
@@ -50,7 +50,7 @@ class InvoiceForm(ModelForm):
             'event_start': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event_end': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'employee': TextInput(attrs={'readonly': 'readonly'}),
-            # 'tr_status': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'})
+            'tr_status': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'})
         }
 
     def clean(self):
