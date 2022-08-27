@@ -93,8 +93,9 @@ def delete_travel_request(request, item_id):
 def delete_travel_invoice(request, item_id):
     ti = TravelInvoice.objects.get(id=item_id)
     # print(ti.upload.path)
-    if os.path.exists(ti.upload.path):
-        os.remove(ti.upload.path)
+    if ti.upload is None:
+        if os.path.exists(ti.upload.path):
+            os.remove(ti.upload.path)
     ti.delete()
     messages.success(request, 'Gelöscht')
     return HttpResponseRedirect(reverse('home'))
