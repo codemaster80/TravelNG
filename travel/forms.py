@@ -26,6 +26,14 @@ class InvoiceForm(ModelForm):
 
     # travel_request = ModelChoiceField(queryset=TravelRequest.objects.filter(username='Max.Traveller'))
 
+    # def __init__(self, *args, **kwargs):
+    #     super(InvoiceForm, self).__init__(*args, **kwargs)
+    #     if 'user' in kwargs:
+    #         user = kwargs.pop('user')
+    #         user = 'Max.Traveller'
+    #         query = TravelRequest.objects.filter(username=user)
+    #         self.fields['travel_request'] = ModelChoiceField(queryset=query, label='Reiseantrag')
+
     class Meta:
         model = TravelInvoice
         labels = {
@@ -45,7 +53,8 @@ class InvoiceForm(ModelForm):
         widgets = {
             'destination': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'journey_start': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'journey_start': DateTimeInput(
+                attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'journey_end': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event_start': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
             'event_end': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
@@ -60,6 +69,7 @@ class InvoiceForm(ModelForm):
             self.errors['tr_status'] = self.error_class(['Reiseantrag ist nicht genehmigt!'])
 
         return self.cleaned_data
+
 
 class AuthForm(ModelForm):
     class Meta:

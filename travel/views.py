@@ -108,6 +108,7 @@ def travel_invoice_details(request, pk=None):
         ti = TravelInvoice()
         ti.username = request.user.get_username()
         ti.employee = request.user.get_full_name()
+        # ti.travel_request = TravelRequest.objects.filter(username=ti.username)
         page_title = 'Reisekostenerstattung'
         sub_title = 'Antrag erstellen'
     # edit invoice
@@ -130,7 +131,7 @@ def travel_invoice_details(request, pk=None):
             'tr_status': tr_data.status
         })
         request.POST = post_data
-        form = InvoiceForm(request.POST, request.FILES, instance=ti)
+        form = InvoiceForm(request.POST, request.FILES, instance=ti, user=ti.username)
         # check form is valid
         if form.is_valid():
             form.save()
