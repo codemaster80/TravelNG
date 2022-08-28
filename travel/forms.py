@@ -23,7 +23,6 @@ class RequestForm(ModelForm):
 
 
 class InvoiceForm(ModelForm):
-
     # travel_request = ModelChoiceField(queryset=TravelRequest.objects.filter(username='Max.Traveller'))
 
     # def __init__(self, *args, **kwargs):
@@ -38,7 +37,6 @@ class InvoiceForm(ModelForm):
         model = TravelInvoice
         labels = {
             'employee': 'Mitarbeiter',
-            'travel_request': 'Reiseantrag',
             'journey_start': 'Reisebeginn',
             'journey_end': 'Reiseende',
             'event_start': 'Dienstbeginn',

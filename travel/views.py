@@ -102,36 +102,38 @@ def delete_travel_invoice(request, item_id):
 
 
 @login_required
-def travel_invoice_details(request, pk=None):
+def travel_invoice_details(request, tr_pk=None, ti_pk=None):
     # new invoice
-    if pk is None:
-        ti = TravelInvoice()
-        ti.username = request.user.get_username()
-        ti.employee = request.user.get_full_name()
-        # ti.travel_request = TravelRequest.objects.filter(username=ti.username)
+    if ti_pk is None:
         page_title = 'Reisekostenerstattung'
-        sub_title = 'Antrag erstellen'
+        sub_title = 'Reiseantrag auswählen'
+        travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by(
+            'journey_start')
+
+        return render(request, 'travel/travelInvoice.html',
+                      {'page_title': page_title, 'sub_title': sub_title, 'travel_requests': travel_requests})
     # edit invoice
     else:
+        tr = get_object_or_404(TravelRequest, pk=pk)
         ti = get_object_or_404(TravelInvoice, pk=pk)
         page_title = 'Reisekostenerstattung'
         sub_title = 'Antrag ändern'
 
     # if submit button pressed
     if request.method == 'POST':
-        post_data = request.POST.copy()
-        tr_data = TravelRequest.objects.get(id=post_data['travel_request'])
-        post_data.update({
-            'event': tr_data.event,
-            'destination': tr_data.destination,
-            'journey_start': tr_data.journey_start,
-            'journey_end': tr_data.journey_end,
-            'event_start': tr_data.event_start,
-            'event_end': tr_data.event_end,
-            'tr_status': tr_data.status
-        })
-        request.POST = post_data
-        form = InvoiceForm(request.POST, request.FILES, instance=ti, user=ti.username)
+        # post_data = request.POST.copy()
+        # tr_data = TravelRequest.objects.get(id=post_data['travel_request'])
+        # post_data.update({
+        #     'event': tr_data.event,
+        #     'destination': tr_data.destination,
+        #     'journey_start': tr_data.journey_start,
+        #     'journey_end': tr_data.journey_end,
+        #     'event_start': tr_data.event_start,
+        #     'event_end': tr_data.event_end,
+        #     'tr_status': tr_data.status
+        # })
+        # request.POST = post_data
+        form = InvoiceForm(request.POST, request.FILES, instance=ti)
         # check form is valid
         if form.is_valid():
             form.save()
@@ -175,7 +177,8 @@ def travel_auth_details(request, pk=None):
 @login_required
 def travel_invoice_refund(request, pk=None):
     if pk is None:
-        travel_invoices = TravelInvoice.objects.filter(tr_status='Genehmigt').filter(ti_status='In Bearbeitung').order_by(
+        travel_invoices = TravelInvoice.objects.filter(tr_status='Genehmigt').filter(
+            ti_status='In Bearbeitung').order_by(
             'journey_start')
         return render(request, 'travel/travelRefund.html',
                       {'travel_invoices': travel_invoices})

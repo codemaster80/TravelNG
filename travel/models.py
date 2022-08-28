@@ -68,7 +68,6 @@ class TravelInvoice(models.Model):
 
     username = models.CharField(max_length=50, null=True, blank=False)
     employee = models.CharField(max_length=50, null=True, blank=False)
-    travel_request = models.OneToOneField(TravelRequest, on_delete=models.SET_NULL, null=True, blank=False)
     destination = models.CharField(max_length=30, null=True, blank=True)
     event = models.CharField(max_length=30, null=True, blank=True)
     journey_start = models.DateTimeField(null=True, blank=True)
