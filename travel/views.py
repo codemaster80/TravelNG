@@ -103,8 +103,11 @@ def delete_travel_invoice(request, item_id):
 
 @login_required
 def travel_invoice_details(request, tr_pk=None, ti_pk=None):
-    # new invoice
-    if ti_pk is None:
+    # invoice overview
+    ti = TravelInvoice()
+    print('tr_pk: ' + str(tr_pk) + 'tr_ti :' + str(ti_pk))
+    if (tr_pk is None) and (ti_pk is None):
+        print('hey')
         page_title = 'Reisekostenerstattung'
         sub_title = 'Reiseantrag auswählen'
         travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by(
@@ -112,29 +115,22 @@ def travel_invoice_details(request, tr_pk=None, ti_pk=None):
 
         return render(request, 'travel/travelInvoice.html',
                       {'page_title': page_title, 'sub_title': sub_title, 'travel_requests': travel_requests})
-    # edit invoice
-    else:
-        tr = get_object_or_404(TravelRequest, pk=pk)
-        ti = get_object_or_404(TravelInvoice, pk=pk)
-        page_title = 'Reisekostenerstattung'
-        sub_title = 'Antrag ändern'
+    # add invoice
+    elif (tr_pk is not None) and (ti_pk is None):
+        tr = get_object_or_404(TravelRequest, pk=tr_pk)
+        ti.username = tr.username
+        ti.employee = tr.employee
+        ti.event = tr.event
+        ti.destination = tr.destination
+        ti.journey_start = tr.journey_start
+        ti.journey_end = tr.journey_end
+        ti.event_start = tr.event_start
+        ti.event_end = tr.event_end
+        ti.tr_status = tr.status
 
     # if submit button pressed
     if request.method == 'POST':
-        # post_data = request.POST.copy()
-        # tr_data = TravelRequest.objects.get(id=post_data['travel_request'])
-        # post_data.update({
-        #     'event': tr_data.event,
-        #     'destination': tr_data.destination,
-        #     'journey_start': tr_data.journey_start,
-        #     'journey_end': tr_data.journey_end,
-        #     'event_start': tr_data.event_start,
-        #     'event_end': tr_data.event_end,
-        #     'tr_status': tr_data.status
-        # })
-        # request.POST = post_data
         form = InvoiceForm(request.POST, request.FILES, instance=ti)
-        # check form is valid
         if form.is_valid():
             form.save()
             messages.success(request, 'Gespeichert')
@@ -143,6 +139,9 @@ def travel_invoice_details(request, tr_pk=None, ti_pk=None):
             messages.error(request, 'Bitte Fehler korrigieren')
     else:
         form = InvoiceForm(instance=ti)
+
+    page_title = 'Reisekostenerstattung'
+    sub_title = 'Antrag erstellen'
 
     return render(request, 'travel/travelForm.html',
                   {'page_title': page_title, 'sub_title': sub_title, 'form': form})
