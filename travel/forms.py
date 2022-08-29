@@ -23,7 +23,6 @@ class RequestForm(ModelForm):
 
 
 class InvoiceForm(ModelForm):
-
     # travel_request = ModelChoiceField(queryset=TravelRequest.objects.filter(username='Max.Traveller'))
 
     # def __init__(self, *args, **kwargs):
@@ -38,7 +37,6 @@ class InvoiceForm(ModelForm):
         model = TravelInvoice
         labels = {
             'employee': 'Mitarbeiter',
-            'travel_request': 'Reiseantrag',
             'journey_start': 'Reisebeginn',
             'journey_end': 'Reiseende',
             'event_start': 'Dienstbeginn',
@@ -51,15 +49,14 @@ class InvoiceForm(ModelForm):
         }
         exclude = ['username', 'ti_status']
         widgets = {
-            'destination': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'event': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'journey_start': DateTimeInput(
-                attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'journey_end': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'event_start': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
-            'event_end': DateTimeInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'}),
+            'destination': TextInput(attrs={'readonly': 'readonly'}),
+            'event': TextInput(attrs={'readonly': 'readonly'}),
+            'journey_start': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'journey_end': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'event_start': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'event_end': DateTimeInput(attrs={'readonly': 'readonly'}),
             'employee': TextInput(attrs={'readonly': 'readonly'}),
-            'tr_status': TextInput(attrs={'readonly': 'readonly', 'placeholder': 'wird automatisch ausgefüllt'})
+            'tr_status': TextInput(attrs={'readonly': 'readonly'})
         }
 
     def clean(self):
