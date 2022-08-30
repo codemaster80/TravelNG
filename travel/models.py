@@ -1,12 +1,7 @@
-import uuid
-from fileinput import filename
-
 from django.core.exceptions import ValidationError
 from django.db import models
 
 # Create your models here.
-from django.db.models.fields.files import FieldFile
-from django.utils import timezone
 
 
 def user_directory_path(instance, f_name):

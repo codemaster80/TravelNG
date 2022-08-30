@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('travel', '0032_alter_travelinvoice_event_end_and_more'),
     ]
@@ -13,7 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='travelinvoice',
             name='status',
-            field=models.CharField(choices=[('In Prüfung', 'In Prüfung'), ('Genehmigt', 'Genehmigt')], default='In Prüfung', max_length=30),
+            field=models.CharField(choices=[('In Prüfung', 'In Prüfung'), ('Genehmigt', 'Genehmigt')],
+                                   default='In Prüfung', max_length=30),
         ),
         migrations.AlterField(
             model_name='travelinvoice',
@@ -23,6 +23,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='travelrequest',
             name='status',
-            field=models.CharField(choices=[('In Prüfung', 'In Prüfung'), ('Genehmigt', 'Genehmigt')], default='In Prüfung', max_length=30),
+            field=models.CharField(choices=[('In Prüfung', 'In Prüfung'), ('Genehmigt', 'Genehmigt')],
+                                   default='In Prüfung', max_length=30),
         ),
     ]

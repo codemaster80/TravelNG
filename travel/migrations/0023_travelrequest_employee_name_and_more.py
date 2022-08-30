@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('travel', '0022_travelinvoice_destination_travelinvoice_event_and_more'),
     ]

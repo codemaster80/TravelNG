@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from travel.models import *
 
 # Register your models here.

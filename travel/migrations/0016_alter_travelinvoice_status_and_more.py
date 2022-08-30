@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('travel', '0015_alter_travelrequest_status'),
     ]
@@ -13,7 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='travelinvoice',
             name='status',
-            field=models.CharField(choices=[('Wartet', 'Wartet'), ('Genehmigt', 'Genehmigt')], default='Wartet', max_length=30),
+            field=models.CharField(choices=[('Wartet', 'Wartet'), ('Genehmigt', 'Genehmigt')], default='Wartet',
+                                   max_length=30),
         ),
         migrations.DeleteModel(
             name='TravelInvoiceStatus',

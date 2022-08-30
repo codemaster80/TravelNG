@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('travel', '0033_alter_travelinvoice_status_and_more'),
     ]
@@ -17,7 +16,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='travelinvoice',
             name='ti_status',
-            field=models.CharField(choices=[('In Bearbeitung', 'In Bearbeitung'), ('Auszahlung angewiesen', 'Auszahlung angewiesen')], default='In Bearbeitung', max_length=30),
+            field=models.CharField(
+                choices=[('In Bearbeitung', 'In Bearbeitung'), ('Auszahlung angewiesen', 'Auszahlung angewiesen')],
+                default='In Bearbeitung', max_length=30),
         ),
         migrations.AddField(
             model_name='travelinvoice',

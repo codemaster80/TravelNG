@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('travel', '0034_remove_travelinvoice_status_travelinvoice_ti_status_and_more'),
     ]
@@ -18,6 +17,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='travelrequest',
             name='status',
-            field=models.CharField(choices=[('In Bearbeitung', 'In Bearbeitung'), ('Genehmigt', 'Genehmigt')], default='In Bearbeitung', max_length=30),
+            field=models.CharField(choices=[('In Bearbeitung', 'In Bearbeitung'), ('Genehmigt', 'Genehmigt')],
+                                   default='In Bearbeitung', max_length=30),
         ),
     ]
