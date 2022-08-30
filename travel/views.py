@@ -104,10 +104,8 @@ def delete_travel_invoice(request, item_id):
 @login_required
 def travel_invoice_details(request, tr_pk=None, ti_pk=None):
     # invoice overview
-    ti = TravelInvoice()
-    print('tr_pk: ' + str(tr_pk) + 'tr_ti :' + str(ti_pk))
     if (tr_pk is None) and (ti_pk is None):
-        print('hey')
+        ti = TravelInvoice()
         page_title = 'Reisekostenerstattung'
         sub_title = 'Reiseantrag auswählen'
         travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by(
@@ -117,6 +115,8 @@ def travel_invoice_details(request, tr_pk=None, ti_pk=None):
                       {'page_title': page_title, 'sub_title': sub_title, 'travel_requests': travel_requests})
     # add invoice
     elif (tr_pk is not None) and (ti_pk is None):
+        page_title = 'Reisekostenerstattung'
+        sub_title = 'Antrag erstellen'
         tr = get_object_or_404(TravelRequest, pk=tr_pk)
         ti.username = tr.username
         ti.employee = tr.employee
@@ -127,6 +127,11 @@ def travel_invoice_details(request, tr_pk=None, ti_pk=None):
         ti.event_start = tr.event_start
         ti.event_end = tr.event_end
         ti.tr_status = tr.status
+    # edit invoice
+    else:
+        page_title = 'Reisekostenerstattung'
+        sub_title = 'Antrag ändern'
+        ti = get_object_or_404(TravelInvoice, pk=ti_pk)
 
     # if submit button pressed
     if request.method == 'POST':
@@ -139,9 +144,6 @@ def travel_invoice_details(request, tr_pk=None, ti_pk=None):
             messages.error(request, 'Bitte Fehler korrigieren')
     else:
         form = InvoiceForm(instance=ti)
-
-    page_title = 'Reisekostenerstattung'
-    sub_title = 'Antrag erstellen'
 
     return render(request, 'travel/travelForm.html',
                   {'page_title': page_title, 'sub_title': sub_title, 'form': form})
