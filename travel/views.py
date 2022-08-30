@@ -51,9 +51,15 @@ def home(request):
 
 
 @login_required
-def travel_request_details(request, pk=None):
-    # new travel
-    if pk is None:
+def travel_request_details(request, pk=None, delete_id=None):
+    # delete travel request
+    if delete_id is not None:
+        tr = TravelRequest.objects.get(id=delete_id)
+        tr.delete()
+        messages.success(request, 'Gelöscht')
+        return HttpResponseRedirect(reverse('home'))
+    # new travel request
+    elif pk is None:
         tr = TravelRequest()
         tr.username = request.user.get_username()
         tr.employee = request.user.get_full_name()
@@ -82,35 +88,22 @@ def travel_request_details(request, pk=None):
 
 
 @login_required
-def delete_travel_request(request, item_id):
-    tr = TravelRequest.objects.get(id=item_id)
-    tr.delete()
-    messages.success(request, 'Gelöscht')
-    return HttpResponseRedirect(reverse('home'))
-
-
-@login_required
-def delete_travel_invoice(request, item_id):
-    ti = TravelInvoice.objects.get(id=item_id)
-    # print(ti.upload.path)
-    if ti.upload is None:
-        if os.path.exists(ti.upload.path):
-            os.remove(ti.upload.path)
-    ti.delete()
-    messages.success(request, 'Gelöscht')
-    return HttpResponseRedirect(reverse('home'))
-
-
-@login_required
-def travel_invoice_details(request, tr_pk=None, ti_pk=None):
+def travel_invoice_details(request, tr_pk=None, ti_pk=None, delete_id=None):
+    # delete travel invoice
+    if delete_id is not None:
+        ti = TravelInvoice.objects.get(id=delete_id)
+        if ti.upload is None:
+            if os.path.exists(ti.upload.path):
+                os.remove(ti.upload.path)
+        ti.delete()
+        messages.success(request, 'Gelöscht')
+        return HttpResponseRedirect(reverse('home'))
     # invoice overview
-    if (tr_pk is None) and (ti_pk is None):
-        ti = TravelInvoice()
+    elif (tr_pk is None) and (ti_pk is None):
         page_title = 'Reisekostenerstattung'
         sub_title = 'Reiseantrag auswählen'
         travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by(
             'journey_start')
-
         return render(request, 'travel/travelInvoice.html',
                       {'page_title': page_title, 'sub_title': sub_title, 'travel_requests': travel_requests})
     # add invoice
@@ -118,6 +111,7 @@ def travel_invoice_details(request, tr_pk=None, ti_pk=None):
         page_title = 'Reisekostenerstattung'
         sub_title = 'Antrag erstellen'
         tr = get_object_or_404(TravelRequest, pk=tr_pk)
+        ti = TravelInvoice()
         ti.username = tr.username
         ti.employee = tr.employee
         ti.event = tr.event
@@ -157,9 +151,7 @@ def travel_auth_details(request, pk=None):
         travel_requests = TravelRequest.objects.all().order_by('journey_start')
         return render(request, 'travel/travelAuth.html',
                       {'page_title': page_title, 'sub_title': sub_title, 'travel_requests': travel_requests})
-
     tr = get_object_or_404(TravelRequest, pk=pk)
-
     if request.method == 'POST':
         form = AuthForm(request.POST, instance=tr)
         if form.is_valid():
@@ -177,12 +169,13 @@ def travel_auth_details(request, pk=None):
 
 @login_required
 def travel_invoice_refund(request, pk=None):
+    # refund overview
     if pk is None:
         travel_invoices = TravelInvoice.objects.filter(tr_status='Genehmigt').filter(
-            ti_status='In Bearbeitung').order_by(
-            'journey_start')
+            ti_status='In Bearbeitung').order_by('journey_start')
         return render(request, 'travel/travelRefund.html',
                       {'travel_invoices': travel_invoices})
+    # refund change
     else:
         ti = get_object_or_404(TravelInvoice, pk=pk)
         page_title = 'Reisekostenerstattung'
@@ -191,10 +184,6 @@ def travel_invoice_refund(request, pk=None):
     if request.method == 'POST':
         form = RefundForm(request.POST, instance=ti)
         if form.is_valid():
-            form.save()
-            tr_data = TravelRequest.objects.get(id=ti.travel_request_id)
-            ti.event = tr_data.event
-            ti.destination = tr_data.destination
             form.save()
             messages.success(request, 'Gespeichert')
             return HttpResponseRedirect(reverse('home'))
@@ -212,12 +201,10 @@ def create_pdf_document(request, pdf=None, pk=None):
     pk = pk
     buffer = io.BytesIO()
     page = canvas.Canvas(buffer, pagesize=A4, bottomup=0)
-
     # draw page
     text = page.beginText()
     text.setTextOrigin(cm, cm)
     text.setFont("Helvetica", 12, leading=20)
-
     if pdf == 'tr':
         tr_data = TravelRequest.objects.get(id=pk)
         lines = [
@@ -249,10 +236,8 @@ def create_pdf_document(request, pdf=None, pk=None):
             'Fahrtkosten: ' + str(ti_data.transport_costs),
             'Nebenkosten: ' + str(ti_data.other_costs),
         ]
-
     for line in lines:
         text.textLine(line)
-
     page.drawText(text)
     page.showPage()
     page.save()

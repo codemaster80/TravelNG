@@ -19,18 +19,17 @@ from django.urls import path, include, re_path
 
 import travel.views
 from TravelNG import settings
-from travel.views import home, logout_view, delete_travel_request
+from travel.views import home, logout_view
 
 urlpatterns = [
     path('', home, name="home"),
     re_path(r'^Request/Add/$', travel.views.travel_request_details, name="addTravelRequest"),
     re_path(r'^Request/Edit/(?P<pk>[0-9]+)/?$', travel.views.travel_request_details, name="editTravelRequest"),
-    path('deleteRequest/<int:item_id>', delete_travel_request, name="deleteTravelRequest"),
+    path('deleteRequest/<int:delete_id>', travel.views.travel_request_details, name="deleteTravelRequest"),
     re_path(r'^Invoice/$', travel.views.travel_invoice_details, name="travelInvoice"),
     re_path(r'^Invoice/Add/(?P<tr_pk>[0-9]+)/?$', travel.views.travel_invoice_details, name="addTravelInvoice"),
     re_path(r'^Invoice/Edit/(?P<ti_pk>[0-9]+)/?$', travel.views.travel_invoice_details, name="editTravelInvoice"),
-    re_path(r'^Invoice/Delete/$<int:item_id>', travel.views.delete_travel_invoice, name="deleteTravelInvoice"),
-    path('Invoice/Delete/<int:item_id>', travel.views.delete_travel_invoice, name="deleteTravelInvoice"),
+    path('Invoice/Delete/<int:delete_id>', travel.views.travel_invoice_details, name="deleteTravelInvoice"),
     re_path(r'^Request/Auth/$', travel.views.travel_auth_details, name="travelAuth"),
     re_path(r'^Auth/Edit/(?P<pk>[0-9]+)/?$', travel.views.travel_auth_details, name="editTravelAuth"),
     re_path(r'^Invoice/Refund/$', travel.views.travel_invoice_refund, name="travelInvoiceRefund"),
