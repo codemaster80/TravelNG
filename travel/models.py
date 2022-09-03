@@ -1,9 +1,9 @@
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 
+
 # Create your models here.
-
-
 def user_directory_path(instance, f_name):
     return 'user_{0}/{1}'.format(instance.username, f_name)
 
@@ -11,6 +11,14 @@ def user_directory_path(instance, f_name):
 def upload_validator(file):
     if not file.name.endswith('.pdf'):
         raise ValidationError(u'Dateiformat wird nicht unterstützt!')
+
+
+class Employee(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    supervisor = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f'{self.supervisor}'
 
 
 class CostCenter(models.Model):
