@@ -15,7 +15,7 @@ def upload_validator(file):
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    supervisor = models.CharField(max_length=30)
+    supervisor = models.CharField(max_length=50)
 
     def __str__(self):
         return f'{self.supervisor}'
@@ -43,6 +43,7 @@ class TravelRequest(models.Model):
 
     username = models.CharField(max_length=50, null=True, blank=False)
     employee = models.CharField(max_length=50, null=True, blank=False)
+    supervisor = models.CharField(max_length=50, null=True, blank=False)
     destination = models.CharField(max_length=50, blank=False)
     event = models.CharField(max_length=50, blank=False)
     journey_start = models.DateTimeField(default='01.01.2022 08:00', blank=False)

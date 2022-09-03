@@ -8,6 +8,7 @@ class RequestForm(ModelForm):
         model = TravelRequest
         labels = {
             'employee': 'Mitarbeiter',
+            'supervisor': 'Vorgesetzter',
             'destination': 'Reiseziel',
             'event': 'Veranstaltung',
             'cost_center': 'Kostenstelle',
@@ -20,6 +21,7 @@ class RequestForm(ModelForm):
         exclude = ['username', 'status']
         widgets = {
             'employee': TextInput(attrs={'readonly': 'readonly'}),
+            'supervisor': TextInput(attrs={'readonly': 'readonly'}),
         }
 
 
@@ -38,6 +40,7 @@ class InvoiceForm(ModelForm):
         model = TravelInvoice
         labels = {
             'employee': 'Mitarbeiter',
+            'supervisor': 'Vorgesetzter',
             'journey_start': 'Reisebeginn',
             'journey_end': 'Reiseende',
             'event_start': 'Dienstbeginn',
@@ -57,6 +60,7 @@ class InvoiceForm(ModelForm):
             'event_start': DateTimeInput(attrs={'readonly': 'readonly'}),
             'event_end': DateTimeInput(attrs={'readonly': 'readonly'}),
             'employee': TextInput(attrs={'readonly': 'readonly'}),
+            'supervisor': TextInput(attrs={'readonly': 'readonly'}),
             'tr_status': TextInput(attrs={'readonly': 'readonly'})
         }
 
@@ -74,6 +78,7 @@ class AuthForm(ModelForm):
         model = TravelRequest
         labels = {
             'employee': 'Mitarbeiter',
+            'supervisor': 'Vorgesetzter',
             'destination': 'Reiseziel',
             'event': 'Veranstaltung',
             'cost_center': 'Kostenstelle',
@@ -86,6 +91,7 @@ class AuthForm(ModelForm):
         exclude = ['username']
         widgets = {
             'employee': TextInput(attrs={'readonly': 'readonly'}),
+            'supervisor': TextInput(attrs={'readonly': 'readonly'}),
             'destination': TextInput(attrs={'readonly': 'readonly'}),
             'event': TextInput(attrs={'readonly': 'readonly'}),
             'cost_center': Select(attrs={'readonly': 'readonly'}),

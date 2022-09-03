@@ -27,7 +27,8 @@ def home(request):
         print('user is supervisor')
         travel_requests = TravelRequest.objects.filter(username=request.user.get_username()).order_by('journey_start')
         travel_invoices = TravelInvoice.objects.filter(username=request.user.get_username()).order_by('journey_start')
-        travel_auth = TravelRequest.objects.filter(status='In Bearbeitung').order_by('journey_start')
+        travel_auth = TravelRequest.objects.filter(status='In Bearbeitung',
+                                                   supervisor=request.user.get_username()).order_by('journey_start')
         return render(request, 'travel/home.html',
                       {'page_title': '', 'travel_requests': travel_requests, 'travel_invoices': travel_invoices,
                        'travel_auth': travel_auth})
@@ -62,6 +63,8 @@ def travel_request_details(request, pk=None, delete_id=None):
         tr = TravelRequest()
         tr.username = request.user.get_username()
         tr.employee = request.user.get_full_name()
+        user = User.objects.get(username=tr.username)
+        tr.supervisor = user.employee.supervisor
         page_title = 'Reiseantrag'
         sub_title = 'Antrag erstellen'
     # edit travel
