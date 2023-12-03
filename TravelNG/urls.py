@@ -19,10 +19,10 @@ from django.urls import path, include, re_path
 
 import travel.views
 from TravelNG import settings
-from travel.views import home, logout_view
+from travel.views import startpage, logout_view
 
 urlpatterns = [
-                  path('', home, name="home"),
+                  path('', startpage, name="home"),
                   re_path(r'^Request/Add/$', travel.views.travel_request_details, name="addTravelRequest"),
                   re_path(r'^Request/Edit/(?P<pk>[0-9]+)/?$', travel.views.travel_request_details,
                           name="editTravelRequest"),
